@@ -12,7 +12,7 @@ function etype_newsletters_schema() {
     'fields' => array(
       'nid' => array(
         'description' => 'Nodes added to a newsletter.',
-        'type' => 'serial',
+        'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
