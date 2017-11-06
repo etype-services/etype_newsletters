@@ -4,3 +4,4 @@ package = eType Services Custom Modules
 core = 7.x
 project = "etype_newsletters"
 dependencies[] = views_bulk_operations
+dependencies[] = admin_views

@@ -1,10 +1,22 @@
 <?php
 
-function etype_newsletters_menu() {
-  $items['admin/structure/etype/newsletters/manage/'] = array(
-    'title' => 'Edit',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-  );
+/**
+ * @return array
+ */
+function etype_newsletters_action_info() {
+  return array(
+    'etype_newsletters_add_node' => array(
+        'type' => 'node',
+        'label' => t('Add Node to Newsletter'),
+        'configurable' => FALSE,
+      ),
+    );
+  }
 
-  return $items;
+/**
+ * @param $entity
+ */
+function my_application_reset_action($node) {
+  var_dump($node);
+  exit;
 }
