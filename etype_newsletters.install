@@ -6,7 +6,7 @@
  * Time: 12:32 p.m.
  */
 
-function eytpe_newsletters_schema() {
+function etype_newsletters_schema() {
   $schema['eytpe_newsletters'] = array(
     'description' => 'The base table for eytpe_newsletters.',
     'fields' => array(
@@ -18,18 +18,20 @@ function eytpe_newsletters_schema() {
       ),
     ),
   );
+
+  return $schema;
 }
 
 /**
  * Implements hook_install().
  */
-function eytpe_newsletters_install() {
+function etype_newsletters_install() {
   // ya nada
 }
 
 /**
  * Implements hook_uninstall().
  */
-function eytpe_newsletters_uninstall() {
+function etype_newsletters_uninstall() {
   db_query('DROP TABLE {eytpe_newsletters}');
 }
