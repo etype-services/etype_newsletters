@@ -1,5 +1,10 @@
 <?php
 
 function etype_newsletters_menu() {
-  //
+  $items['admin/structure/etype/newsletters/manage/'] = array(
+    'title' => 'Edit',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+
+  return $items;
 }

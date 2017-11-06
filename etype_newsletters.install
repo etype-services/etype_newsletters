@@ -7,8 +7,8 @@
  */
 
 function etype_newsletters_schema() {
-  $schema['eytpe_newsletters'] = array(
-    'description' => 'The base table for eytpe_newsletters.',
+  $schema['etype_newsletters'] = array(
+    'description' => 'The base table for etype_newsletters.',
     'fields' => array(
       'nid' => array(
         'description' => 'Nodes added to a newsletter.',
@@ -33,5 +33,5 @@ function etype_newsletters_install() {
  * Implements hook_uninstall().
  */
 function etype_newsletters_uninstall() {
-  db_query('DROP TABLE {eytpe_newsletters}');
+  db_query('DROP TABLE {etype_newsletters}');
 }
