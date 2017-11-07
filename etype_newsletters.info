@@ -5,3 +5,4 @@ core = 7.x
 project = "etype_newsletters"
 dependencies[] = views_bulk_operations
 dependencies[] = admin_views
+files[] = etype_newsletters.admin.inc
