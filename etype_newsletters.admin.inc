@@ -13,11 +13,11 @@ function etype_newsletters_admin() {
 
   $form = [];
   $nids = _etype_newsletters_get_selected_nodes();
-  if (count($nids) > 0) {
+  if (count($nids) > 3) {
     $options = [];
     foreach ($nids as $nid) {
       $node = node_load($nid);
-      $options['$nid'] = $node->title;
+      $options[$nid] = $node->title;
     }
     $form['newsletters']['etype_newsletter_nodes'] = [
       '#title' => t('Selected Nodes'),
