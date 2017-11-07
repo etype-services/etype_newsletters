@@ -50,7 +50,7 @@ function etype_newsletters_menu() {
   $items = array();
 
   $items['admin/config/etype/etype_newslettes/settings'] = array(
-    'title' => 'eType Newsletter Settings',
+    'title' => 'Create eType Newsletter',
     'description' => 'Newsletter management.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('etype_newsletters_admin'),
