@@ -27,7 +27,7 @@ function _etype_newsletters_get_selected_nodes() {
   $query->fields('n', array('nid'));
   $results = $query->execute();
   $nodes = [];
-  while ($n = $results->fetchAssoc()) {
+  while ($n = $results->fetchObject()) {
     $nodes[] = $n->nid;
   }
   return $nodes;
