@@ -20,10 +20,10 @@ function etype_newsletters_action_info() {
  * @param $context
  */
 function etype_newsletters_add_node(&$node, $context) {
-  var_dump($node);
   $nid = db_insert('etype_newsletters')
     ->fields([
-      'nid' => $node>nid,
+      'nid' => $node->nid,
     ])
     ->execute();
+  dpm($nid);
 }
