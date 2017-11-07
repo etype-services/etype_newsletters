@@ -25,7 +25,7 @@ function etype_newsletters_admin() {
 function _etype_newsletters_get_selected_nodes() {
 
   $query = db_select('etype_newsletters', 'n');
-  $query->fields('nid');
+  $query->fields(n, array('nid'));
   $results = $query->execute();
   return $results;
 
