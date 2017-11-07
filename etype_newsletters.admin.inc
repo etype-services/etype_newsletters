@@ -11,27 +11,28 @@
  */
 function etype_newsletters_admin() {
 
-  $nodes = _etype_newsletters_get_selected_nodes();
-  if (count($nodes) > 0) {
+  $form = [];
+  $nids = _etype_newsletters_get_selected_nodes();
+  if (count($nids) > 0) {
     $options = [];
-    foreach ($nodes as $nid) {
+    foreach ($nids as $nid) {
       $node = node_load($nid);
       $options['$nid'] = $node->title;
     }
+    $form['newsletters']['etype_newsletter_nodes'] = [
+      '#title' => t('Selected Nodes'),
+      '#multiple' => TRUE,
+      '#description' => t("These are the nodes that will be used to build the newsletter."),
+      '#weight' => '1',
+      '#type' => 'checkboxes',
+      '#options' => $options,
+      '#default_value' => $options,
+    ];
+  } else {
+    $form['newsletters']['etype_newsletter_nodes'] = [
+      '#markup' => '<p>Select nodes to add to the newsletter at the <a href="/admin/content">Content page<a/>.</p>',
+    ];
   }
-
-  $form = [];
-
-  $form['newsletters']['etype_newsletter_nodes'] = [
-    '#title' => t('Slected Nodes'),
-    '#multiple' => TRUE,
-    '#description' => t("These are the nodes that will be used to build the newsletter."),
-    '#weight' => '1',
-    '#type' => 'checkboxes',
-    '#options' => $options,
-    '#default_value' => $options,
-  ];
-
 
   return system_settings_form($form);
 }
@@ -43,9 +44,9 @@ function _etype_newsletters_get_selected_nodes() {
   $query = db_select('etype_newsletters', 'n');
   $query->fields('n', array('nid'));
   $results = $query->execute();
-  $nodes = [];
+  $nids = [];
   while ($n = $results->fetchObject()) {
-    $nodes[] = $n->nid;
+    $nids[] = $n->nid;
   }
-  return $nodes;
+  return $nids;
 }
