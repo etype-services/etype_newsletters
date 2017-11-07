@@ -4,11 +4,11 @@
  * Implements hook_permission().
  */
 function etype_newsletters_permission() {
-  return array(
-    'administer etype newsletters' => array(
+  return [
+    'administer etype newsletters' => [
       'title' => t('Administer eType Newsletters'),
-    )
-  );
+    ],
+  ];
 }
 
 /**
@@ -16,15 +16,15 @@ function etype_newsletters_permission() {
  * Create custom VBO action
  */
 function etype_newsletters_action_info() {
-  return array (
-    'etype_newsletters_add_nodes' => array(
+  return [
+    'etype_newsletters_add_nodes' => [
       'type' => 'node',
       'label' => t('Add nodes to newsletter'),
       'configurable' => FALSE,
       'triggers' => ['any'],
       'pass rows' => TRUE,
-      ),
-  );
+    ],
+  ];
 }
 
 /**
@@ -34,10 +34,10 @@ function etype_newsletters_action_info() {
  */
 function etype_newsletters_add_nodes(&$node, $context) {
   $nid = db_merge('etype_newsletters')
-    ->key(array('nid' => $node->nid))
-    ->fields(array(
+    ->key(['nid' => $node->nid])
+    ->fields([
       'nid' => $node->nid,
-    ))
+    ])
     ->execute();
   // dpm($nid);
 }
@@ -47,17 +47,17 @@ function etype_newsletters_add_nodes(&$node, $context) {
  */
 function etype_newsletters_menu() {
 
-  $items = array();
+  $items = [];
 
-  $items['admin/config/etype/etype_newslettes/settings'] = array(
+  $items['admin/config/etype/etype_newsletters/settings'] = [
     'title' => 'Create eType Newsletter',
     'description' => 'Newsletter management.',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('etype_newsletters_admin'),
-    'access arguments' => array('administer etype newsletters'),
+    'page arguments' => ['etype_newsletters_admin'],
+    'access arguments' => ['administer etype newsletters'],
     'file' => 'etype_newsletters.admin.inc',
     'type' => MENU_NORMAL_ITEM,
-  );
+  ];
 
   return $items;
 }
