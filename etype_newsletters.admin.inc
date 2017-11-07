@@ -23,10 +23,8 @@ function etype_newsletters_admin() {
  * @return mixed
  */
 function _etype_newsletters_get_selected_nodes() {
-
   $query = db_select('etype_newsletters', 'n');
-  $query->fields(n, array('nid'));
+  $query->fields('n', array('nid'));
   $results = $query->execute();
   return $results;
-
 }
