@@ -26,5 +26,5 @@ function etype_newsletters_add_node(&$node, $context) {
       'nid' => $node->nid,
     ))
     ->execute();
-  dpm($nid);
+  // dpm($nid);
 }
