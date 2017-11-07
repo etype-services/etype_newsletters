@@ -26,7 +26,7 @@ function etype_newsletters_admin() {
       '#weight' => '1',
       '#type' => 'checkboxes',
       '#options' => $options,
-      '#default_value' => $options,
+      '#default_value' => $nids,
     ];
   } else {
     $form['newsletters']['etype_newsletter_nodes'] = [
