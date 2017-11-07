@@ -61,3 +61,12 @@ function etype_newsletters_menu() {
 
   return $items;
 }
+
+/**
+ * @param $node
+ */
+function etype_newsletters_node_delete($node) {
+  db_delete('etype_newsletters')
+    ->condition('nid', $node->nid)
+    ->execute();
+}
