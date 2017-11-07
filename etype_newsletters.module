@@ -4,22 +4,26 @@
  * @return array
  */
 function etype_newsletters_action_info() {
-  return array(
-    'etype_newsletters_add_node' => array(
-        'type' => 'node',
-        'label' => t('Add node to newsletter'),
-        'configurable' => FALSE,
-      ),
-    );
-  }
+  return [
+    'etype_newsletters_add_node' => [
+      'type' => 'node',
+      'label' => t('Add node to newsletter'),
+      'configurable' => FALSE,
+      'triggers' => ['any'],
+      'pass rows' => TRUE,
+    ],
+  ];
+}
 
 /**
  * @param $node
+ * @param $context
  */
-function etype_newsletters_add_node($node) {
+function etype_newsletters_add_node(&$node, $context) {
+  var_dump($node);
   $nid = db_insert('etype_newsletters')
-    ->fields(array(
-      'nid' => $node->nid,
-    ))
+    ->fields([
+      'nid' => $node>nid,
+    ])
     ->execute();
 }
