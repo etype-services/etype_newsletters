@@ -54,6 +54,10 @@ function _etype_newsletters_get_selected_nodes() {
   return $nids;
 }
 
+/**
+ * @param $form
+ * @param $form_state
+ */
 function etype_newsletters_admin_submit($form, &$form_state) {
   $content = '';
   $nids = $form['newsletters']['etype_newsletter_nodes']['#value'];
@@ -65,4 +69,10 @@ function etype_newsletters_admin_submit($form, &$form_state) {
     }
   }
   dpm($content);
+
+  /* remove queued nodes from module table
+  db_delete('etype_newsletters')
+    ->execute();
+  */
+
 }
