@@ -55,5 +55,15 @@ function _etype_newsletters_get_selected_nodes() {
 }
 
 function etype_newsletters_admin_submit($form, &$form_state) {
+  $content = '';
   dpm($form['newsletters']['etype_newsletter_nodes']['#value']);
+  $nids = $form['newsletters']['etype_newsletter_nodes']['#value'];
+  if (count($nids) > 0) {
+    foreach ($nids as $nid) {
+      $node = node_load($nid);
+      dpm($node);
+      $content .= "<h2>" . $node->title . "</h2>";
+    }
+  }
+
 }
