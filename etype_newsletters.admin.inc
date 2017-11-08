@@ -64,5 +64,5 @@ function etype_newsletters_admin_submit($form, &$form_state) {
       $content .= drupal_render($view);
     }
   }
-  print($content);
+  dpm($content);
 }
