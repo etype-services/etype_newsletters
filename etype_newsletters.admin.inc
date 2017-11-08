@@ -60,8 +60,8 @@ function etype_newsletters_admin_submit($form, &$form_state) {
   if (count($nids) > 0) {
     foreach ($nids as $nid) {
       $node = node_load($nid);
-      $view = node_view($node, 'teaser');
-      $content .= drupal_render($view);
+      $view = node_view($node, 'teaser'); // use teaser mode
+      $content .= drupal_render($view); // needs cleaning up to remove links
     }
   }
   dpm($content);
