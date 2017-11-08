@@ -8,6 +8,7 @@
 
 /**
  * @return mixed
+ * Admin Form
  */
 function etype_newsletters_admin() {
 
@@ -22,7 +23,7 @@ function etype_newsletters_admin() {
     $form['newsletters']['etype_newsletter_nodes'] = [
       '#title' => t('Selected Stories'),
       '#multiple' => TRUE,
-      '#description' => t("These stories will be used to build the newsletter."),
+      '#description' => t("These stories will be used to build the newsletter. Deselect any that you do not wish to include."),
       '#weight' => '1',
       '#type' => 'checkboxes',
       '#options' => $options,
