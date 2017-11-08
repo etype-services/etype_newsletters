@@ -20,14 +20,13 @@ function etype_newsletters_admin() {
       $options[$nid] = $node->title;
     }
     $form['newsletters']['etype_newsletter_nodes'] = [
-      '#title' => t('Selected Nodes'),
+      '#title' => t('Selected Stories'),
       '#multiple' => TRUE,
-      '#description' => t("These are the nodes that will be used to build the newsletter."),
+      '#description' => t("These stories will be used to build the newsletter."),
       '#weight' => '1',
       '#type' => 'checkboxes',
       '#options' => $options,
       '#default_value' => $nids,
-      '#description_display' => 'before',
     ];
   } else {
     $form['newsletters']['etype_newsletter_nodes'] = [
@@ -38,7 +37,6 @@ function etype_newsletters_admin() {
   // Set a submit handler manually because the default submit handler
   // gets overridden by the system_settings_form() submit handler.
   $form['#submit'][] = 'etype_newsletters_admin_submit';
-
   return system_settings_form($form);
 }
 
@@ -57,5 +55,5 @@ function _etype_newsletters_get_selected_nodes() {
 }
 
 function etype_newsletters_admin_submit($form, &$form_state) {
-  dpm($form);
+  dpm($form['newsletters']['etype_newsletter_nodes']['#value']);
 }
