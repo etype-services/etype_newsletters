@@ -12,7 +12,7 @@
 function etype_newsletters_admin() {
 
   $form = [];
-  $nids = _etype_newsletters_get_selected_nodes();
+  $nids = etype_newsletters_get_selected_nodes();
   if (count($nids) > 0) {
     $options = [];
     foreach ($nids as $nid) {
@@ -43,7 +43,7 @@ function etype_newsletters_admin() {
 /**
  * @return mixed
  */
-function _etype_newsletters_get_selected_nodes() {
+function etype_newsletters_get_selected_nodes() {
   $query = db_select('etype_newsletters', 'n');
   $query->fields('n', array('nid'));
   $results = $query->execute();
