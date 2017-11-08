@@ -64,6 +64,7 @@ function etype_newsletters_menu() {
 
 /**
  * @param $node
+ * Remove newsletter row on node deletion
  */
 function etype_newsletters_node_delete($node) {
   db_delete('etype_newsletters')
