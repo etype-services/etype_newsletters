@@ -71,6 +71,8 @@ function etype_newsletters_admin_submit($form, &$form_state) {
   }
   dpm($content);
 
+  // send rendered content to subscriber system
+
   /* remove queued nodes from module table
   db_delete('etype_newsletters')
     ->execute();
