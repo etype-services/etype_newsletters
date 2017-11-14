@@ -42,6 +42,10 @@ function etype_newsletters_admin() {
   return system_settings_form($form);
 }
 
+function etype_newsletters_form_alter(&$form, $form_state) {
+  dpm($form);
+}
+
 /**
  * @return mixed
  */
