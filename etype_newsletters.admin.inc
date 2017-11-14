@@ -69,23 +69,22 @@ function etype_newsletters_admin_submit($form, &$form_state) {
       $content .= drupal_render($view);   // needs cleaning up to remove links
     }
   }
-  dpm($content);
+
+  // dpm($content);
 
   // send rendered content to subscriber system
   $pub_id = variable_get('etype_pub');
-  if (empty($pub_id)) {
+  if (!empty($pub_id)) {
+    //$params=array('UserName'=>"$username");
+    //$client12= new soapclient('https://www.etypeservices.com/service_GetPublicationIDByUserName.asmx?WSDL');
+    //$response12=$client12->GetPublicationID($param12);
 
+    /* remove queued nodes from module table
+    db_delete('etype_newsletters')
+      ->execute();
+    */
   } else {
-    drupal_set_message("Please set Pub Id in eType Settings. The newsletter was not sent.", WARNING);
+    drupal_set_message("Please set Pub Id in eType Settings. The newsletter was not sent.", 'warning');
   }
-
-  //$params=array('UserName'=>"$username");
-  //$client12= new soapclient('https://www.etypeservices.com/service_GetPublicationIDByUserName.asmx?WSDL');
-  //$response12=$client12->GetPublicationID($param12);
-
-  /* remove queued nodes from module table
-  db_delete('etype_newsletters')
-    ->execute();
-  */
 
 }
