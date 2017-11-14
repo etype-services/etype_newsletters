@@ -20,7 +20,7 @@ function etype_newsletters_admin() {
       $node = node_load($nid);
       $options[$nid] = $node->title;
     }
-    $form['newsletters']['etype_newsletter_nodes'] = [
+    $form['etype_newsletter_nodes'] = [
       '#title' => t('Selected Stories'),
       '#multiple' => TRUE,
       '#description' => t("These stories will be used to build the newsletter. Deselect any that you do not wish to include."),
@@ -29,8 +29,14 @@ function etype_newsletters_admin() {
       '#options' => $options,
       '#default_value' => $nids,
     ];
+
+    $form['etype_newsletter_subject'] = [
+      '#title' => t('Subject'),
+      '#description' => t("Enter a subject line for the newsletter."),
+      '#type' => 'textfield',
+    ];
   } else {
-    $form['newsletters']['etype_newsletter_nodes'] = [
+    $form['etype_newsletter_nodes'] = [
       '#markup' => '<p>Select nodes to add to the newsletter at the <a href="/admin/content">Content page<a/>.</p>',
     ];
   }
@@ -40,7 +46,6 @@ function etype_newsletters_admin() {
 
   return $form;
 }
-
 
 /**
  * @return mixed
@@ -61,9 +66,10 @@ function etype_newsletters_get_selected_nodes() {
  * @param $form_state
  */
 function etype_newsletters_admin_submit($form, &$form_state) {
-  dpm($form);
+
   $content = '';
-  $nids = $form['newsletters']['etype_newsletter_nodes']['#value'];
+  $nids = $form['etype_newsletter_nodes']['#value'];
+  $subject = $form['etype_newsletter_subject']['#value'];
   if (count($nids) > 0) {
     foreach ($nids as $nid) {
       $node = node_load($nid);
@@ -72,14 +78,15 @@ function etype_newsletters_admin_submit($form, &$form_state) {
     }
   }
 
-  // dpm($content);
-
   // send rendered content to subscriber system
   $pub_id = variable_get('etype_pub');
   if (!empty($pub_id)) {
-    //$params=array('UserName'=>"$username");
-    //$client12= new soapclient('https://www.etypeservices.com/service_GetPublicationIDByUserName.asmx?WSDL');
-    //$response12=$client12->GetPublicationID($param12);
+    $params=array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
+      $content);
+    $client= new soapclient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
+    $response=$client->Service_EmailtoListViaDrupal($params);
+
+    dpm($response);
 
     /* remove queued nodes from module table
     db_delete('etype_newsletters')
