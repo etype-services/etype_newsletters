@@ -81,10 +81,10 @@ function etype_newsletters_admin_submit($form, &$form_state) {
   // send rendered content to subscriber system
   $pub_id = variable_get('etype_pub');
   if (!empty($pub_id)) {
-    $params=array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
+    $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
       $content);
-    $client= new soapclient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
-    $response=$client->Service_EmailtoListViaDrupal($params);
+    $client = new soapclient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
+    $response = $client->EmailtoListViaDrupal($params);
 
     dpm($response);
 
