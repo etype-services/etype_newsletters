@@ -38,12 +38,12 @@ function etype_newsletters_admin() {
   // Set a submit handler manually because the default submit handler
   // gets overridden by the system_settings_form() submit handler.
   $form['#submit'][] = 'etype_newsletters_admin_submit';
-  $form['actions']['submit']['#value'] = t('Build Newsletter');
   return system_settings_form($form);
 }
 
 function etype_newsletters_etype_newsletters_admin_alter(&$form, $form_state) {
   dpm($form);
+  $form['actions']['submit']['#value'] = t('Build Newsletter');
 }
 
 /**
