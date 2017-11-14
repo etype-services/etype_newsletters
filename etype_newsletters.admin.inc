@@ -73,7 +73,11 @@ function etype_newsletters_admin_submit($form, &$form_state) {
 
   // send rendered content to subscriber system
   $pub_id = variable_get('etype_pub');
-  dpm ($pub_id);
+  if (empty($pub_id)) {
+
+  } else {
+    drupal_set_message("Please set Pub Id in eType Settings. The newsletter was not sent.", WARNING);
+  }
 
   //$params=array('UserName'=>"$username");
   //$client12= new soapclient('https://www.etypeservices.com/service_GetPublicationIDByUserName.asmx?WSDL');
