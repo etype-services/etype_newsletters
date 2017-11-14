@@ -33,6 +33,7 @@ function etype_newsletters_admin() {
       '#title' => t('Subject'),
       '#description' => t("Enter a subject line for the newsletter."),
       '#type' => 'textfield',
+      '#default_value' => 'Test Newsletter',
     ];
   } else {
     $form['etype_newsletter_nodes'] = [
