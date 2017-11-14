@@ -84,9 +84,9 @@ function etype_newsletters_admin_submit($form, &$form_state) {
     $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
       $content);
     $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
-    dpm($client);
-    //$response = $client->EmailtoListViaDrupal($params);
-    //dpm($response);
+    // dpm($client);
+    $response = $client->EmailtoListViaDrupal($params);
+    dpm($response);
 
     /* remove queued nodes from module table
     db_delete('etype_newsletters')
