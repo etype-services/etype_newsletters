@@ -61,6 +61,7 @@ function etype_newsletters_get_selected_nodes() {
  * @param $form_state
  */
 function etype_newsletters_admin_submit($form, &$form_state) {
+  dpm($form);
   $content = '';
   $nids = $form['newsletters']['etype_newsletter_nodes']['#value'];
   if (count($nids) > 0) {
