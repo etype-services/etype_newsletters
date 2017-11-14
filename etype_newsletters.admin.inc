@@ -42,7 +42,7 @@ function etype_newsletters_admin() {
   return system_settings_form($form);
 }
 
-function etype_newsletters_form_alter(&$form, $form_state) {
+function etype_newsletters_etype_newsletters_admin_alter(&$form, $form_state) {
   dpm($form);
 }
 
