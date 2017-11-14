@@ -72,7 +72,7 @@ function etype_newsletters_admin_submit($form, &$form_state) {
   dpm($content);
 
   // send rendered content to subscriber system
-  $pub_id = variable_get('etype_pub_id');
+  $pub_id = variable_get('etype_pub');
   dpm ($pub_id);
 
   //$params=array('UserName'=>"$username");
