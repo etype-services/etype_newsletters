@@ -81,6 +81,7 @@ function etype_newsletters_admin_submit($form, &$form_state) {
   // send rendered content to subscriber system
   $pub_id = variable_get('etype_pub');
   if (!empty($pub_id)) {
+    ini_set("soap.wsdl_cache_enabled", "0");
     $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
       $content);
     $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
