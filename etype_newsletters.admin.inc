@@ -27,6 +27,7 @@ function etype_newsletters_get_selected_nodes() {
  * determine whether confirmation is required
  */
 function etype_newsletters_admin($form_state) {
+  dpm($form_state);
   if (isset($form_state['values'])) {
     if ($form_state['values']['process'] === 'true') {
       return etype_newsletters_admin_form_confirm($form_state);
