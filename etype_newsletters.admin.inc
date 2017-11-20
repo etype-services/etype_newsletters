@@ -74,6 +74,8 @@ function etype_newsletters_admin_submit($form, &$form_state) {
     'admin/config/etype'
   );
 
+  dpm($form);
+
   return $form;
 }
 
