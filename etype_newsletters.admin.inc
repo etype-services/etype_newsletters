@@ -71,7 +71,7 @@ function etype_newsletters_admin_submit($form, &$form_state) {
 
   $form = confirm_form($form,
     t('Are you sure you want to send this newsletter?'),
-    'admin/config/etype/etype_newsletters/settings'
+    'admin/config/etype'
   );
 
   return $form;
