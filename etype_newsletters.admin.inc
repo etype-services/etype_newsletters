@@ -25,9 +25,8 @@ function etype_newsletters_get_selected_nodes() {
  * @param $form_state
  * @return array
  */
-function etype_newsletters_admin_form(&$form_state) {
+function etype_newsletters_admin_form() {
 
-  dpm($form_state);
   $form = [];
   $nids = etype_newsletters_get_selected_nodes();
   if (count($nids) > 0) {
