@@ -56,7 +56,7 @@ function etype_newsletters_admin() {
   }
 
   $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
-  $form['#submit'][] = 'etype_newsletters_admin_submit';
+  $form['#action'][] = 'admin/config/etype_newsletters/confirm';
 
   return $form;
 }
@@ -67,7 +67,7 @@ function etype_newsletters_admin() {
  *
  * @return mixed
  */
-function etype_newsletters_admin_submit($form, &$form_state) {
+function etype_newsletters_admin_confirm($form, &$form_state) {
 
   $output = confirm_form($form,
     t('Are you sure you want to send this newsletter?'),
@@ -84,7 +84,7 @@ function etype_newsletters_admin_submit($form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function etype_newsletters_admin_send($form, &$form_state) {
+function etype_newsletters_admin_submit($form, &$form_state) {
 
   $content = '';
   $nids = $form['etype_newsletter_nodes']['#value'];
