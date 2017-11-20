@@ -28,9 +28,9 @@ function etype_newsletters_get_selected_nodes() {
  */
 function etype_newsletters_admin($form_state) {
   if ($form_state['values']['process'] === 'true') {
-    return etype_newsletters_admin_confirm(&$form_state);
+    return etype_newsletters_admin_form_confirm($form_state);
   } else {
-    return etype_newsletters_admin_send();
+    return etype_newsletters_admin_form($form_state);
   }
 
 }
@@ -39,7 +39,7 @@ function etype_newsletters_admin($form_state) {
  * @return mixed
  * Admin Form
  */
-function etype_newsletters_admin_form() {
+function etype_newsletters_admin_form($form_state) {
 
   $form = [];
   $nids = etype_newsletters_get_selected_nodes();
@@ -80,9 +80,7 @@ function etype_newsletters_admin_form() {
 }
 
 /**
- * @param $form
  * @param $form_state
- *
  * @return mixed
  */
 function etype_newsletters_admin_form_confirm(&$form_state) {
