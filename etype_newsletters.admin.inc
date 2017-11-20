@@ -98,7 +98,7 @@ function etype_newsletters_admin_form_confirm(&$form_state) {
  * @param $form
  * @param $form_state
  */
-function etype_newsletters_admin_submit($form, &$form_state) {
+function etype_newsletters_admin_form_submit($form, &$form_state) {
 
   $content = '';
   $nids = $form['etype_newsletter_nodes']['#value'];
@@ -125,6 +125,8 @@ function etype_newsletters_admin_submit($form, &$form_state) {
     db_delete('etype_newsletters')
       ->execute();
     */
+
+    $form_state['rebuild'] = TRUE;
 
   } else {
     drupal_set_message("Please set Pub Id in eType Settings. The newsletter was not sent.", 'warning');
