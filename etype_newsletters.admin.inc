@@ -56,7 +56,7 @@ function etype_newsletters_admin() {
   }
 
   $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
-  $form['#confirm'][] = 'etype_newsletters_admin_submit';
+  $form['confirm'][] = 'etype_newsletters_admin_submit';
 
   return $form;
 }
