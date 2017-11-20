@@ -82,7 +82,7 @@ function etype_newsletters_admin_submit($form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function etype_newsletters_admin_no($form, &$form_state) {
+function etype_newsletters_admin_send($form, &$form_state) {
 
   $content = '';
   $nids = $form['etype_newsletter_nodes']['#value'];
@@ -102,8 +102,8 @@ function etype_newsletters_admin_no($form, &$form_state) {
     $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
       $content);
     $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
-    $response = $client->EmailtoListViaDrupal($params);
-    dpm($response);
+    // $response = $client->EmailtoListViaDrupal($params);
+    // dpm($response);
 
     /* remove queued nodes from module table
     db_delete('etype_newsletters')
