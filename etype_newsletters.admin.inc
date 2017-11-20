@@ -8,6 +8,20 @@
 
 /**
  * @return mixed
+ */
+function etype_newsletters_get_selected_nodes() {
+  $query = db_select('etype_newsletters', 'n');
+  $query->fields('n', array('nid'));
+  $results = $query->execute();
+  $nids = [];
+  while ($n = $results->fetchObject()) {
+    $nids[] = $n->nid;
+  }
+  return $nids;
+}
+
+/**
+ * @return mixed
  * Admin Form
  */
 function etype_newsletters_admin() {
@@ -48,24 +62,27 @@ function etype_newsletters_admin() {
 }
 
 /**
+ * @param $form
+ * @param $form_state
+ *
  * @return mixed
  */
-function etype_newsletters_get_selected_nodes() {
-  $query = db_select('etype_newsletters', 'n');
-  $query->fields('n', array('nid'));
-  $results = $query->execute();
-  $nids = [];
-  while ($n = $results->fetchObject()) {
-    $nids[] = $n->nid;
-  }
-  return $nids;
+function etype_newsletters_admin_submit($form, &$form_state) {
+
+  $form = confirm_form($form,
+    t('Are you sure you want to send this newsletter?'),
+    'admin/config/etype/etype_newsletters/settings'
+  );
+
+  return $form;
 }
+
 
 /**
  * @param $form
  * @param $form_state
  */
-function etype_newsletters_admin_submit($form, &$form_state) {
+function etype_newsletters_admin_nosubmit___($form, &$form_state) {
 
   $content = '';
   $nids = $form['etype_newsletter_nodes']['#value'];
@@ -92,8 +109,6 @@ function etype_newsletters_admin_submit($form, &$form_state) {
     db_delete('etype_newsletters')
       ->execute();
     */
-
-    return confirm_form($form, t('Are you sure you want to send this newsletter?'), 'admin/config/etype/etype_newsletters/settings');
 
   } else {
     drupal_set_message("Please set Pub Id in eType Settings. The newsletter was not sent.", 'warning');
