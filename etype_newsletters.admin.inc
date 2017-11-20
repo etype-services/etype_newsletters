@@ -82,7 +82,7 @@ function etype_newsletters_admin_submit($form, &$form_state) {
  * @param $form
  * @param $form_state
  */
-function etype_newsletters_admin_nosubmit___($form, &$form_state) {
+function etype_newsletters_admin_no($form, &$form_state) {
 
   $content = '';
   $nids = $form['etype_newsletter_nodes']['#value'];
