@@ -39,7 +39,7 @@ function etype_newsletters_admin($form_state) {
  * @return mixed
  * Admin Form
  */
-function etype_newsletters_admin_send() {
+function etype_newsletters_admin_form() {
 
   $form = [];
   $nids = etype_newsletters_get_selected_nodes();
@@ -85,7 +85,7 @@ function etype_newsletters_admin_send() {
  *
  * @return mixed
  */
-function etype_newsletters_admin_confirm(&$form_state) {
+function etype_newsletters_admin_form_confirm(&$form_state) {
 
   $form = [];
   return confirm_form($form,
