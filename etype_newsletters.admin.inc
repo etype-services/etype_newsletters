@@ -21,10 +21,17 @@ function etype_newsletters_get_selected_nodes() {
 }
 
 /**
+ * function determines whether confiration is required
+ */
+function etype_newsletters_admin($form_state) {
+  dpm($form_state);
+}
+
+/**
  * @return mixed
  * Admin Form
  */
-function etype_newsletters_admin() {
+function etype_newsletters_send() {
 
   $form = [];
   $nids = etype_newsletters_get_selected_nodes();
