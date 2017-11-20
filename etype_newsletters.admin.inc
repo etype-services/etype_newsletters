@@ -73,9 +73,7 @@ function etype_newsletters_admin_form($form_state) {
   }
 
   $form['process'] = ['#type' => 'hidden', '#value' => 'true'];
-
   $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
-  $form['#submit'][] = 'etype_newsletters_admin_submit';
   return $form;
 }
 
