@@ -83,7 +83,7 @@ function etype_newsletters_admin_submit($form, &$form_state) {
   if (!empty($pub_id)) {
     ini_set("soap.wsdl_cache_enabled", "0");
     $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
-      'This is a test of the newsletter service');
+      $content);
     $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
     $response = $client->EmailtoListViaDrupal($params);
     dpm($response);
@@ -92,6 +92,9 @@ function etype_newsletters_admin_submit($form, &$form_state) {
     db_delete('etype_newsletters')
       ->execute();
     */
+
+    return confirm_form($form, t('Are you sure you want to send this newsletter?'), 'admin/config/etype/etype_newsletters/settings');
+
   } else {
     drupal_set_message("Please set Pub Id in eType Settings. The newsletter was not sent.", 'warning');
   }
