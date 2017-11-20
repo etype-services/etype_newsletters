@@ -21,26 +21,36 @@ function etype_newsletters_get_selected_nodes() {
 }
 
 /**
- * function determines whether confiration is required
+ * @param $form_state
+ *
+ * @return mixed
+ * determine whether confirmation is required
  */
 function etype_newsletters_admin($form_state) {
-  dpm($form_state);
+  if ($form_state['values']['process'] === 'true') {
+    return etype_newsletters_admin_confirm(&$form_state);
+  } else {
+    return etype_newsletters_admin_send();
+  }
+
 }
 
 /**
  * @return mixed
  * Admin Form
  */
-function etype_newsletters_send() {
+function etype_newsletters_admin_send() {
 
   $form = [];
   $nids = etype_newsletters_get_selected_nodes();
   if (count($nids) > 0) {
+
     $options = [];
     foreach ($nids as $nid) {
       $node = node_load($nid);
       $options[$nid] = $node->title;
     }
+
     $form['etype_newsletter_nodes'] = [
       '#title' => t('Selected Stories'),
       '#multiple' => TRUE,
@@ -62,9 +72,10 @@ function etype_newsletters_send() {
     ];
   }
 
-  $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
-  $form['#action'] = '/admin/config/etype_newsletters/confirm';
+  $form['process'] = ['#type' => 'hidden', '#value' => 'true'];
 
+  $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
+  $form['#submit'][] = 'etype_newsletters_admin_submit';
   return $form;
 }
 
@@ -74,19 +85,15 @@ function etype_newsletters_send() {
  *
  * @return mixed
  */
-function etype_newsletters_admin_confirm($form, &$form_state) {
+function etype_newsletters_admin_confirm(&$form_state) {
 
-  dpm($form);
-
-  $output = confirm_form($form,
+  $form = [];
+  return confirm_form($form,
     t('Are you sure you want to send this newsletter?'),
     'admin/config/etype/etype_newsletters/settings',
     t('The newsletter wil be sent.')
   );
 
-  dpm($output);
-
-  return $output;
 }
 
 
