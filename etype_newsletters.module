@@ -57,7 +57,7 @@ function etype_newsletters_menu() {
     'type' => MENU_NORMAL_ITEM,
   ];
 
-  $items['admin/config/etype/etype_newsletters/confirm_send'] = [
+  $items['admin/config/etype_newsletters/confirm_send'] = [
     'page callback' => 'drupal_get_form',
     'page arguments' => ['etype_newsletters_admin_confirm_form'],
     'access arguments' => ['administer etype newsletters'],
