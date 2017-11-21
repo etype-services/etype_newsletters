@@ -82,30 +82,34 @@ function etype_newsletters_admin_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form() {
 
-  $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value'
-  => $_POST['etype_newsletter_nodes']);
-  $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value'
-  => filter_xss($_POST['etype_newsletter_subject']));
+  if (isset($_POST['etype_newsletter_nodes'])) {
+    $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value'
+    => $_POST['etype_newsletter_nodes']);
+    $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value'
+    => filter_xss($_POST['etype_newsletter_subject']));
 
-  $form['#attributes']['class'][] = 'confirmation';
-  $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
+    $form['#attributes']['class'][] = 'confirmation';
+    $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
 
-  $form['actions'] = array('#type' => 'actions');
-  $form['actions']['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Send'),
-  );
-  $form['actions']['cancel'] = array(
-    '#type' => 'link',
-    '#title' => t('Cancel'),
-    '#href' => '/admin/config/etype/etype_newsletters/send',
-  );
+    $form['actions'] = array('#type' => 'actions');
+    $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Send'),
+    );
+    $form['actions']['cancel'] = array(
+      '#type' => 'link',
+      '#title' => t('Cancel'),
+      '#href' => '/admin/config/etype/etype_newsletters/send',
+    );
 
-  if (!isset($form['#theme'])) {
-    $form['#theme'] = 'confirm_form';
+    if (!isset($form['#theme'])) {
+      $form['#theme'] = 'confirm_form';
+    }
+    $form['#submit'][] = 'etype_newsletters_admin_confirm_form_submit';
+    return $form;
+  } else {
+    drupal_goto('admin/config/etype/etype_newsletters/send');
   }
-  $form['#submit'][] = 'etype_newsletters_admin_confirm_form_submit';
-  return $form;
 
 }
 
