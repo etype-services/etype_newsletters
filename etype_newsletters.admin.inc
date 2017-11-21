@@ -27,42 +27,54 @@ function etype_newsletters_get_selected_nodes() {
  */
 function etype_newsletters_admin_form($form, &$form_state) {
 
-  $form = [];
-  $nids = etype_newsletters_get_selected_nodes();
-  if (count($nids) > 0) {
+  $pub_id = variable_get('etype_pub');
+  if (empty($pub_id)) {
+    $form['etype_newsletter_nodes'] = [
+      '#markup' => '<p>Please set Pub Id in eType Settings.<a/>.</p>',
+    ];
+    return $form;
+  } else {
 
-    $options = [];
-    foreach ($nids as $nid) {
-      $node = node_load($nid);
-      $options[$nid] = $node->title;
+    $form = [];
+    $nids = etype_newsletters_get_selected_nodes();
+    if (count($nids) > 0) {
+
+      $options = [];
+      foreach ($nids as $nid) {
+        $node = node_load($nid);
+        $options[$nid] = $node->title;
+      }
+
+      $form['etype_newsletter_nodes'] = [
+        '#title' => t('Selected Stories'),
+        '#multiple' => TRUE,
+        '#description' => t("These stories will be used to build the newsletter. Deselect any that you do not wish to include."),
+        '#type' => 'checkboxes',
+        '#options' => $options,
+        '#default_value' => $nids,
+      ];
+
+      $form['etype_newsletter_subject'] = [
+        '#title' => t('Subject'),
+        '#description' => t("Enter a subject line for the newsletter."),
+        '#type' => 'textfield',
+        '#default_value' => 'Test Newsletter',
+      ];
+
+      $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Send Newsletter'));
+      $form['#action'] = '/admin/config/etype_newsletters/confirm_send';
+      return $form;
+
+    } else {
+
+      $form['etype_newsletter_nodes'] = [
+        '#markup' => '<p>Select nodes to add to the newsletter at the <a href="/admin/content">Content page<a/>.</p>',
+      ];
+      return $form;
     }
 
-    $form['etype_newsletter_nodes'] = [
-      '#title' => t('Selected Stories'),
-      '#multiple' => TRUE,
-      '#description' => t("These stories will be used to build the newsletter. Deselect any that you do not wish to include."),
-      '#type' => 'checkboxes',
-      '#options' => $options,
-      '#default_value' => $nids,
-    ];
-
-    $form['etype_newsletter_subject'] = [
-      '#title' => t('Subject'),
-      '#description' => t("Enter a subject line for the newsletter."),
-      '#type' => 'textfield',
-      '#default_value' => 'Test Newsletter',
-    ];
-  } else {
-    $form['etype_newsletter_nodes'] = [
-      '#markup' => '<p>Select nodes to add to the newsletter at the <a href="/admin/content">Content page<a/>.</p>',
-    ];
   }
 
-  $form['confirm'] = ['#type' => 'hidden', '#value' => 'true'];
-  $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Send Newsletter'));
-  $form['#action'] = '/admin/config/etype_newsletters/confirm_send';
-  $form['#multistep'] = TRUE;
-  return $form;
 }
 
 /**
@@ -70,11 +82,12 @@ function etype_newsletters_admin_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form() {
 
-  dpm($_POST);
-
+  $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value'
+  => $_POST['etype_newsletter_nodes']);
+  $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value'
+  => filter_xss($_POST['etype_newsletter_subject']));
   $form['#attributes']['class'][] = 'confirmation';
   $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
-  $form['confirmed'] = array('#type' => 'hidden', '#value' => 1);
 
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
@@ -128,8 +141,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
     db_delete('etype_newsletters')
       ->execute();
     */
-
-    $form_state['rebuild'] = TRUE;
+    drupal_set_message("The newsletter was sent.");
 
   } else {
     drupal_set_message("Please set Pub Id in eType Settings. The newsletter was not sent.", 'warning');
