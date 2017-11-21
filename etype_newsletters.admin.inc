@@ -30,7 +30,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
   $pub_id = variable_get('etype_pub');
   if (empty($pub_id)) {
     $form['etype_newsletter_nodes'] = [
-      '#markup' => '<p>Please set Pub Id in eType Settings.<a/>.</p>',
+      '#markup' => '<p>Please set eType Pub Id in eType Settings.<a/>.</p>',
     ];
     return $form;
   } else {
@@ -116,35 +116,41 @@ function etype_newsletters_admin_confirm_form() {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
+  dpm($form);
+
   $content = '';
   $nids = $form['etype_newsletter_nodes']['#value'];
   $subject = $form['etype_newsletter_subject']['#value'];
+
   if (count($nids) > 0) {
     foreach ($nids as $nid) {
       $node = node_load($nid);
       $view = node_view($node, 'teaser'); // use teaser mode
       $content .= drupal_render($view);   // needs cleaning up to remove links
     }
-  }
 
-  // send rendered content to subscriber system
-  $pub_id = variable_get('etype_pub');
-  if (!empty($pub_id)) {
-    ini_set("soap.wsdl_cache_enabled", "0");
-    $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
-      $content);
-    $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
-    // $response = $client->EmailtoListViaDrupal($params);
-    // dpm($response);
+    // send rendered content to subscriber system
+    $pub_id = variable_get('etype_pub');
+    if (!empty($pub_id)) {
+      ini_set("soap.wsdl_cache_enabled", "0");
+      $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
+        $content);
+      $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
+      // $response = $client->EmailtoListViaDrupal($params);
+      // dpm($response);
 
-    /* remove queued nodes from module table
-    db_delete('etype_newsletters')
-      ->execute();
-    */
-    drupal_set_message("The newsletter was sent.");
+      /* remove queued nodes from module table
+      db_delete('etype_newsletters')
+        ->execute();
+      */
+      drupal_set_message("The newsletter was sent.");
+
+    } else {
+      drupal_set_message("Please set eType Pub Id in eType Settings. The newsletter was not sent.", 'warning');
+    }
 
   } else {
-    drupal_set_message("Please set Pub Id in eType Settings. The newsletter was not sent.", 'warning');
+    drupal_set_message("No content selected. The newsletter was not sent.", 'warning');
   }
 
 }
