@@ -21,11 +21,25 @@ function etype_newsletters_get_selected_nodes() {
 }
 
 /**
+ * @param $form_state
+ *
+ * @return array|mixed
+ */
+function etype_newsletters_admin (&$form_state) {
+
+  if (isset($form_state['values']['confirm'])) {
+    return etype_newsletters_admin_form_confirm();
+  } else {
+    return etype_newsletters_admin_form($form_state);
+  }
+}
+
+/**
  * Send Newsletter form
  * @param $form_state
  * @return array
  */
-function etype_newsletters_admin_form() {
+function etype_newsletters_admin_form(&$form_state) {
 
   $form = [];
   $nids = etype_newsletters_get_selected_nodes();
@@ -67,9 +81,7 @@ function etype_newsletters_admin_form() {
  * @param $form_state
  * @return mixed
  */
-function etype_newsletters_admin_form_confirm(&$form_state) {
-
-  dpm($form_state);
+function etype_newsletters_admin_form_confirm() {
 
   $form['#attributes']['class'][] = 'confirmation';
   $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
@@ -100,12 +112,6 @@ function etype_newsletters_admin_form_confirm(&$form_state) {
  * @return mixed
  */
 function etype_newsletters_admin_form_submit($form, &$form_state) {
-
-  dpm($form_state);
-
-  if (isset($form_state['values']['confirm'])) {
-    return etype_newsletters_admin_form_confirm($form_state);
-  }
 
   $content = '';
   $nids = $form['etype_newsletter_nodes']['#value'];
