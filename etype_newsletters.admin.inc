@@ -31,6 +31,8 @@ function etype_newsletters_admin_form($form, &$form_state) {
 
   if (isset($form_state['values']['confirm'])) {
 
+    dpm($form_state);
+
     $form['#attributes']['class'][] = 'confirmation';
     $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
     $form['confirmed'] = array('#type' => 'hidden', '#value' => 1);
@@ -49,6 +51,8 @@ function etype_newsletters_admin_form($form, &$form_state) {
     if (!isset($form['#theme'])) {
       $form['#theme'] = 'confirm_form';
     }
+
+    $form['#submit'][] = 'etype_newsletters_admin_form_custom_submit';
     return $form;
 
   } else {
@@ -85,7 +89,6 @@ function etype_newsletters_admin_form($form, &$form_state) {
 
     $form['confirm'] = ['#type' => 'hidden', '#value' => 'true'];
     $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
-    $form['#submit'][] = 'etype_newsletters_admin_form_custom_submit';
     return $form;
   }
 
