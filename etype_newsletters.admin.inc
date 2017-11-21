@@ -82,7 +82,7 @@ function etype_newsletters_admin_confirm_form() {
   $form['actions']['cancel'] = array(
     '#type' => 'link',
     '#title' => t('Cancel'),
-    '#href' => 'admin/config/etype/etype_newsletters/send',
+    '#href' => '/admin/config/etype/etype_newsletters/send',
   );
 
   if (!isset($form['#theme'])) {
