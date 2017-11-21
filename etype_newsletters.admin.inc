@@ -28,69 +28,67 @@ function etype_newsletters_get_selected_nodes() {
 function etype_newsletters_admin_form($form, &$form_state) {
 
   $form = [];
+  $nids = etype_newsletters_get_selected_nodes();
+  if (count($nids) > 0) {
 
-  if (isset($form_state['values']['confirm'])) {
-
-    dpm($form_state);
-
-    $form['#attributes']['class'][] = 'confirmation';
-    $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
-    $form['confirmed'] = array('#type' => 'hidden', '#value' => 1);
-
-    $form['actions'] = array('#type' => 'actions');
-    $form['actions']['submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Send'),
-    );
-    $form['actions']['cancel'] = array(
-      '#type' => 'link',
-      '#title' => t('Cancel'),
-      '#href' => 'admin/config/etype/etype_newsletters/settings',
-    );
-
-    if (!isset($form['#theme'])) {
-      $form['#theme'] = 'confirm_form';
+    $options = [];
+    foreach ($nids as $nid) {
+      $node = node_load($nid);
+      $options[$nid] = $node->title;
     }
 
-    $form['#submit'][] = 'etype_newsletters_admin_form_custom_submit';
-    return $form;
+    $form['etype_newsletter_nodes'] = [
+      '#title' => t('Selected Stories'),
+      '#multiple' => TRUE,
+      '#description' => t("These stories will be used to build the newsletter. Deselect any that you do not wish to include."),
+      '#type' => 'checkboxes',
+      '#options' => $options,
+      '#default_value' => $nids,
+    ];
 
+    $form['etype_newsletter_subject'] = [
+      '#title' => t('Subject'),
+      '#description' => t("Enter a subject line for the newsletter."),
+      '#type' => 'textfield',
+      '#default_value' => 'Test Newsletter',
+    ];
   } else {
-
-    $nids = etype_newsletters_get_selected_nodes();
-    if (count($nids) > 0) {
-
-      $options = [];
-      foreach ($nids as $nid) {
-        $node = node_load($nid);
-        $options[$nid] = $node->title;
-      }
-
-      $form['etype_newsletter_nodes'] = [
-        '#title' => t('Selected Stories'),
-        '#multiple' => TRUE,
-        '#description' => t("These stories will be used to build the newsletter. Deselect any that you do not wish to include."),
-        '#type' => 'checkboxes',
-        '#options' => $options,
-        '#default_value' => $nids,
-      ];
-
-      $form['etype_newsletter_subject'] = [
-        '#title' => t('Subject'),
-        '#description' => t("Enter a subject line for the newsletter."),
-        '#type' => 'textfield',
-        '#default_value' => 'Test Newsletter',
-      ];
-    } else {
-      $form['etype_newsletter_nodes'] = [
-        '#markup' => '<p>Select nodes to add to the newsletter at the <a href="/admin/content">Content page<a/>.</p>',
-      ];
-    }
-
-    $form['confirm'] = ['#type' => 'hidden', '#value' => 'true'];
-    $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
-    return $form;
+    $form['etype_newsletter_nodes'] = [
+      '#markup' => '<p>Select nodes to add to the newsletter at the <a href="/admin/content">Content page<a/>.</p>',
+    ];
   }
+
+  $form['confirm'] = ['#type' => 'hidden', '#value' => 'true'];
+  $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
+  $form['#action'] = 'admin/config/etype/etype_newsletters/confirm_send';
+  return $form;
+}
+
+/**
+ * @param $form_state
+ * @return mixed
+ */
+function etype_newsletters_admin_confirm_form() {
+
+  $form['#attributes']['class'][] = 'confirmation';
+  $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
+  $form['confirmed'] = array('#type' => 'hidden', '#value' => 1);
+
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Send'),
+  );
+  $form['actions']['cancel'] = array(
+    '#type' => 'link',
+    '#title' => t('Cancel'),
+    '#href' => 'admin/config/etype/etype_newsletters/send',
+  );
+
+  if (!isset($form['#theme'])) {
+    $form['#theme'] = 'confirm_form';
+  }
+  return $form;
 
 }
 
@@ -100,7 +98,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
  * @param $form_state
  * @return mixed
  */
-function etype_newsletters_admin_form_custom_submit($form, &$form_state) {
+function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
   $content = '';
   $nids = $form['etype_newsletter_nodes']['#value'];
