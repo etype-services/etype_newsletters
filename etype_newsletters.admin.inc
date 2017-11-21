@@ -90,7 +90,7 @@ function etype_newsletters_admin_form_submit($form, &$form_state) {
 
   dpm($form_state);
 
-  if ($form_state['values']['process'] === 'true') {
+  if (isset($form_state['values']['process'])) {
     return etype_newsletters_admin_form_confirm($form_state);
   }
 
