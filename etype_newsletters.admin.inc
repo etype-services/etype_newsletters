@@ -25,7 +25,7 @@ function etype_newsletters_get_selected_nodes() {
  *
  * @return array|mixed
  */
-function etype_newsletters_admin (&$form_state) {
+function etype_newsletters_admin () {
 
   if (isset($form_state['values']['confirm'])) {
     return etype_newsletters_admin_form_confirm();
