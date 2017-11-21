@@ -86,6 +86,7 @@ function etype_newsletters_admin_confirm_form() {
   => $_POST['etype_newsletter_nodes']);
   $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value'
   => filter_xss($_POST['etype_newsletter_subject']));
+
   $form['#attributes']['class'][] = 'confirmation';
   $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
 
@@ -103,7 +104,7 @@ function etype_newsletters_admin_confirm_form() {
   if (!isset($form['#theme'])) {
     $form['#theme'] = 'confirm_form';
   }
-  $form['#action'] = '/admin/config/etype/etype_newsletters/send';
+  $form['#submit'][] = 'etype_newsletters_admin_confirm_form_submit';
   return $form;
 
 }
