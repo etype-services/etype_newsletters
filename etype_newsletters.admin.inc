@@ -117,17 +117,18 @@ function etype_newsletters_admin_confirm_form() {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
-  dpm($form);
-
   $content = '';
-  $nids = $form['etype_newsletter_nodes']['#value'];
+  $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $subject = $form['etype_newsletter_subject']['#value'];
 
   if (count($nids) > 0) {
     foreach ($nids as $nid) {
-      $node = node_load($nid);
-      $view = node_view($node, 'teaser'); // use teaser mode
-      $content .= drupal_render($view);   // needs cleaning up to remove links
+      $nid = trim($nid);
+      if (is_numeric($nid)) {
+        $node = node_load($nid);
+        $view = node_view($node, 'teaser'); // use teaser mode
+        $content .= drupal_render($view);   // needs cleaning up to remove links
+      }
     }
 
     // send rendered content to subscriber system
@@ -139,6 +140,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
       $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
       // $response = $client->EmailtoListViaDrupal($params);
       // dpm($response);
+      dpm($content);
 
       /* remove queued nodes from module table
       db_delete('etype_newsletters')
