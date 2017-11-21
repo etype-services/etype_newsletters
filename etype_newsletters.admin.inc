@@ -70,7 +70,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form() {
 
-  dpm($_POST['input']);
+  dpm($_POST);
 
   $form['#attributes']['class'][] = 'confirmation';
   $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
