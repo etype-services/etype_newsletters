@@ -58,7 +58,7 @@ function etype_newsletters_admin_form() {
     ];
   }
 
-  $form['process'] = ['#type' => 'hidden', '#value' => 'true'];
+  $form['confirm'] = ['#type' => 'hidden', '#value' => 'true'];
   $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
   return $form;
 }
@@ -68,6 +68,8 @@ function etype_newsletters_admin_form() {
  * @return mixed
  */
 function etype_newsletters_admin_form_confirm(&$form_state) {
+
+  dpm($form_state);
 
   $form = [];
   return confirm_form($form,
@@ -82,10 +84,13 @@ function etype_newsletters_admin_form_confirm(&$form_state) {
 /**
  * @param $form
  * @param $form_state
+ * @return mixed
  */
 function etype_newsletters_admin_form_submit($form, &$form_state) {
 
-  dpm($form_state);
+  if ($form_state['values']['process'] === 'true') {
+    return etype_newsletters_admin_form_confirm($form_state);
+  }
 
   $content = '';
   $nids = $form['etype_newsletter_nodes']['#value'];
