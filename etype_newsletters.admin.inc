@@ -61,14 +61,18 @@ function etype_newsletters_admin_form($form, &$form_state) {
   $form['confirm'] = ['#type' => 'hidden', '#value' => 'true'];
   $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Send Newsletter'));
   $form['#action'] = '/admin/config/etype_newsletters/confirm_send';
+  $form['#multistep'] = TRUE;
   return $form;
 }
 
 /**
+ * @param $form
  * @param $form_state
  * @return mixed
  */
-function etype_newsletters_admin_confirm_form() {
+function etype_newsletters_admin_confirm_form($form, &$form_state) {
+
+  dpm($form);
 
   $form['#attributes']['class'][] = 'confirmation';
   $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
