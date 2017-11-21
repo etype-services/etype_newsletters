@@ -59,8 +59,8 @@ function etype_newsletters_admin_form($form, &$form_state) {
   }
 
   $form['confirm'] = ['#type' => 'hidden', '#value' => 'true'];
-  $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Build Newsletter'));
-  $form['#action'] = '/admin/config/etype/etype_newsletters/confirm_send';
+  $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Send Newsletter'));
+  $form['#action'] = '/admin/config/etype_newsletters/confirm_send';
   return $form;
 }
 
