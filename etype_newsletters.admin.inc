@@ -71,12 +71,25 @@ function etype_newsletters_admin_form_confirm(&$form_state) {
 
   dpm($form_state);
 
-  $form = [];
-  return confirm_form($form,
-    t('Are you sure you want to send this newsletter?'),
-    'admin/config/etype/etype_newsletters/settings',
-    t('The newsletter wil be sent.')
+  $form['#attributes']['class'][] = 'confirmation';
+  $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
+  $form['confirmed'] = array('#type' => 'hidden', '#value' => 1);
+
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Send'),
   );
+  $form['actions']['cancel'] = array(
+    '#type' => 'link',
+    '#title' => t('Cancel'),
+    '#href' => 'admin/config/etype/etype_newsletters/settings',
+  );
+
+  if (!isset($form['#theme'])) {
+    $form['#theme'] = 'confirm_form';
+  }
+  return $form;
 
 }
 
