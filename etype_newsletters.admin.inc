@@ -26,11 +26,10 @@ function etype_newsletters_get_selected_nodes() {
  * @return array|mixed
  */
 function etype_newsletters_admin () {
-
   if (isset($form_state['values']['confirm'])) {
-    return etype_newsletters_admin_form_confirm();
+    return drupal_get_form('etype_newsletters_admin_form_confirm');
   } else {
-    return etype_newsletters_admin_form($form_state);
+    return drupal_get_form('etype_newsletters_admin_form');
   }
 }
 
@@ -39,7 +38,7 @@ function etype_newsletters_admin () {
  * @param $form_state
  * @return array
  */
-function etype_newsletters_admin_form(&$form_state) {
+function etype_newsletters_admin_form($form, &$form_state) {
 
   $form = [];
   $nids = etype_newsletters_get_selected_nodes();
