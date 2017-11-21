@@ -72,7 +72,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form($form, &$form_state) {
 
-  dpm($form);
+  dpm($form_state);
 
   $form['#attributes']['class'][] = 'confirmation';
   $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
@@ -92,6 +92,7 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
   if (!isset($form['#theme'])) {
     $form['#theme'] = 'confirm_form';
   }
+  $form['#action'] = '/admin/config/etype/etype_newsletters/send';
   return $form;
 
 }
