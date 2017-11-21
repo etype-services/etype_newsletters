@@ -88,6 +88,8 @@ function etype_newsletters_admin_form_confirm(&$form_state) {
  */
 function etype_newsletters_admin_form_submit($form, &$form_state) {
 
+  dpm($form_state);
+
   if ($form_state['values']['process'] === 'true') {
     return etype_newsletters_admin_form_confirm($form_state);
   }
