@@ -103,8 +103,12 @@ function etype_newsletters_admin_confirm_form() {
     dpm($_POST);
     $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
     $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
-    $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
-    $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_is_test']));
+    if (isset($_POST['etype_newsletter_is_test'])) {
+      $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_is_test'][0]));
+    }
+    if (isset($_POST['etype_newsletter_test_email'])) {
+      $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
+    }
 
     $form['#attributes']['class'][] = 'confirmation';
     $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
