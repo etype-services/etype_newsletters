@@ -186,15 +186,21 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
       }
       $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
       $response = $client->EmailtoListViaDrupal($params);
-      dpm($response);
-      // dpm($content);
 
-      /* remove queued nodes from module table
-      db_delete('etype_newsletters')
+      //dpm($response);
+      //dpm($content);
+
+      if ($response !== 1) {
+        drupal_set_message("An error ocurred, and the newsletter may not have been sent. Please contact eType Customer Service.", 'error');
+      } else {
+        /* remove queued nodes from module table
+        db_delete('etype_newsletters')
         ->execute();
-      */
-      drupal_set_message("The newsletter was sent.");
-      drupal_goto('admin/content');
+        */
+        drupal_set_message("The newsletter was sent.");
+        drupal_goto('admin/content');
+      }
+
 
     } else {
       drupal_set_message("Please set eType Pub Id in eType Settings. The newsletter was not sent.", 'warning');
