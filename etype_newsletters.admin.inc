@@ -152,7 +152,6 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
   dpm($test);
   dpm($email);
-  exit;
 
   if (count($nids) > 0) {
 
