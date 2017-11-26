@@ -100,7 +100,9 @@ function etype_newsletters_admin_form($form, &$form_state) {
 function etype_newsletters_admin_confirm_form() {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
-    dpm($_POST);
+
+    //dpm($_POST);
+
     $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
     $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
     if (isset($_POST['etype_newsletter_is_test'])) {
@@ -154,8 +156,8 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   $test = $form['etype_newsletter_is_test']['#value'];
   $email = $form['etype_newsletter_test_email']['#value'];
 
-  dpm($test);
-  dpm($email);
+  //dpm($test);
+  //dpm($email);
 
   if (count($nids) > 0) {
 
@@ -183,8 +185,8 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         }
       }
       $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
-      // $response = $client->EmailtoListViaDrupal($params);
-      // dpm($response);
+      $response = $client->EmailtoListViaDrupal($params);
+      dpm($response);
       // dpm($content);
 
       /* remove queued nodes from module table
