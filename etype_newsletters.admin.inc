@@ -109,11 +109,15 @@ function etype_newsletters_admin_confirm_form() {
       $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'no');
     }
     if (isset($_POST['etype_newsletter_test_email'])) {
-      $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
+      $email = filter_xss($_POST['etype_newsletter_test_email']);
+      $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => $email);
+      $message = 'Click Send to send the newsletter to ' . $email . '.';
+    } else {
+      $message = "Click Send to send the newsletter to subscribers now.";
     }
 
     $form['#attributes']['class'][] = 'confirmation';
-    $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
+    $form['description'] = array('#markup' => $message);
 
     $form['actions'] = array('#type' => 'actions');
     $form['actions']['submit'] = array(
@@ -174,7 +178,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         if ($true === true) {
           $params['TestEmailAddress'] = $email;
         } else {
-          drupal_set_message("The test email is not valid. Please check it and try again.");
+          drupal_set_message("The test email is not valid. Please check it and try again.", 'error');
           drupal_goto('admin/config/etype/etype_newsletters/send');
         }
       }
