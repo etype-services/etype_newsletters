@@ -61,6 +61,23 @@ function etype_newsletters_admin_form($form, &$form_state) {
         '#default_value' => 'Test Newsletter',
       ];
 
+      $form['etype_newsletter_is_test'] = [
+        '#title' => t('Send newsletter to test email'),
+        '#description' => t("If checked, the newsletter will only be sent to the test email below."),
+        '#type' => 'raadio',
+        '#options' => ['yes' => 'Yes'],
+        '#default_value' => 'yes',
+      ];
+
+      $setting = variable_get('type_newsletter_test_email');
+      $test_email =  empty($setting)? variable_get('site_mail'): $setting;
+      $form['etype_newsletter_test_email'] = [
+        '#title' => t('Test email address'),
+        '#description' => t("Enter a test email address."),
+        '#type' => 'textfield',
+        '#default_value' => $test_email,
+      ];
+
       $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Send Newsletter'));
       $form['#action'] = '/admin/config/etype_newsletters/confirm_send';
       return $form;
@@ -83,10 +100,8 @@ function etype_newsletters_admin_form($form, &$form_state) {
 function etype_newsletters_admin_confirm_form() {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
-    $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value'
-    => $_POST['etype_newsletter_nodes']);
-    $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value'
-    => filter_xss($_POST['etype_newsletter_subject']));
+    $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
+    $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
 
     $form['#attributes']['class'][] = 'confirmation';
     $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
@@ -151,6 +166,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         ->execute();
       */
       drupal_set_message("The newsletter was sent.");
+      drupal_goto('admin/content');
 
     } else {
       drupal_set_message("Please set eType Pub Id in eType Settings. The newsletter was not sent.", 'warning');
