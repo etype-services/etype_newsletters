@@ -69,7 +69,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
         '#default_value' => ['yes'],
       ];
 
-      $setting = variable_get('type_newsletter_test_email');
+      $setting = variable_get('etype_newsletter_test_email');
       $test_email =  empty($setting)? variable_get('site_mail'): $setting;
       $form['etype_newsletter_test_email'] = [
         '#title' => t('Test email address'),
@@ -102,6 +102,8 @@ function etype_newsletters_admin_confirm_form() {
   if (isset($_POST['etype_newsletter_nodes'])) {
     $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
     $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
+    $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
+    $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_is_test']));
 
     $form['#attributes']['class'][] = 'confirmation';
     $form['description'] = array('#markup' => "Click Send to send the newsletter now.");
@@ -139,8 +141,11 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   $content = '';
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $subject = $form['etype_newsletter_subject']['#value'];
+  $test = $form['etype_newsletter_is_test']['#value'];
+  $email = $form['etype_newsletter_test_email']['#value'];
 
   if (count($nids) > 0) {
+
     foreach ($nids as $nid) {
       $nid = trim($nid);
       if (is_numeric($nid)) {
@@ -154,12 +159,20 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
     $pub_id = variable_get('etype_pub');
     if (!empty($pub_id)) {
       ini_set("soap.wsdl_cache_enabled", "0");
-      $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' =>
-        $content);
+      $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' => $content);
+      if ($test === 'yes') {
+        $true = valid_email_address($email);
+        if ($true === true) {
+          $params['TestEmailAddress'] = $email;
+        } else {
+          drupal_set_message("The test email is not valid. Please check it and try again.");
+          drupal_goto('admin/config/etype/etype_newsletters/send');
+        }
+      }
       $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
       // $response = $client->EmailtoListViaDrupal($params);
       // dpm($response);
-      dpm($content);
+      // dpm($content);
 
       /* remove queued nodes from module table
       db_delete('etype_newsletters')
