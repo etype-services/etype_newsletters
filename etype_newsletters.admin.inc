@@ -190,7 +190,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
       //dpm($response);
       //dpm($content);
 
-      if ($response !== 1) {
+      if ($response->EmailtoListViaDrupalResult !== 1) {
         drupal_set_message("An error ocurred, and the newsletter may not have been sent. Please contact eType Customer Service.", 'error');
       } else {
         /* remove queued nodes from module table
