@@ -100,6 +100,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
 function etype_newsletters_admin_confirm_form() {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
+    dpm($_POST);
     $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
     $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
     $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
