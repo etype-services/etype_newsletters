@@ -66,7 +66,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
         '#description' => t("If checked, the newsletter will only be sent to the test email below."),
         '#type' => 'checkboxes',
         '#options' => ['yes' => 'Yes'],
-        '#default_value' => 'yes',
+        '#default_value' => 'Yes',
       ];
 
       $setting = variable_get('type_newsletter_test_email');
