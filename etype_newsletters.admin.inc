@@ -110,10 +110,19 @@ function etype_newsletters_admin_confirm_form() {
     } else {
       $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'no');
     }
+
     if (isset($_POST['etype_newsletter_test_email'])) {
+
       $email = filter_xss($_POST['etype_newsletter_test_email']);
-      $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => $email);
-      $message = 'Click Send to send the newsletter to ' . $email . '.';
+      $true = valid_email_address($email);
+      if ($true === true) {
+        $message = 'Click Send to send the newsletter to ' . $email . '.';
+        $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => $email);
+      } else {
+        drupal_set_message("The test email is not valid. Please check it and try again.", 'error');
+        drupal_goto('admin/config/etype/etype_newsletters/send');
+      }
+
     } else {
       $message = "Click Send to send the newsletter to subscribers now.";
     }
@@ -175,7 +184,9 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
     if (!empty($pub_id)) {
       ini_set("soap.wsdl_cache_enabled", "0");
       $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' => $content);
+      // is this a test?
       if ($test === 'yes') {
+        // validate email address
         $true = valid_email_address($email);
         if ($true === true) {
           $params['TestEmailAddress'] = $email;
@@ -193,10 +204,11 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
       if ($response->EmailtoListViaDrupalResult !== 1) {
         drupal_set_message("An error ocurred, and the newsletter may not have been sent. Please contact eType Customer Service.", 'error');
       } else {
-        /* remove queued nodes from module table
-        db_delete('etype_newsletters')
-        ->execute();
-        */
+        if ($test !== 'yes') {
+          // remove queued nodes from module table
+          db_delete('etype_newsletters')
+          ->execute();
+        }
         drupal_set_message("The newsletter was sent.");
         drupal_goto('admin/content');
       }
