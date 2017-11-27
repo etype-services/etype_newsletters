@@ -113,7 +113,7 @@ function etype_newsletters_admin_confirm_form() {
 
     if (isset($_POST['etype_newsletter_test_email'])) {
 
-      $email = filter_xss($_POST['etype_newsletter_test_email']);
+      $email = trim(filter_xss($_POST['etype_newsletter_test_email']));
       $true = valid_email_address($email);
       if ($true === true) {
         $message = 'Click Send to send the newsletter to ' . $email . '.';
@@ -182,6 +182,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
     // send rendered content to subscriber system
     $pub_id = variable_get('etype_pub');
     if (!empty($pub_id)) {
+
       ini_set("soap.wsdl_cache_enabled", "0");
       $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' => $content);
       // is this a test?
@@ -210,7 +211,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
           ->execute();
         }
         drupal_set_message("The newsletter was sent.");
-        drupal_goto('admin/content');
+        drupal_goto('admin/config/etype/etype_newsletters/send');
       }
 
 
