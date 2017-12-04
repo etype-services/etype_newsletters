@@ -17,6 +17,10 @@ function etype_newsletters_build_newsletter() {
     'cache' => '/tmp',
   ));
 
+  $logo = theme_get_setting('logo');
+
   $template = $twig->load('white-blue.html');
-  echo $template->render(array('the' => 'variables', 'go' => 'here'));
+  echo $template->render([
+    'logo' => $logo,
+  ]);
 }
