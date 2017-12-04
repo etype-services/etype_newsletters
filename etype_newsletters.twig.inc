@@ -18,8 +18,9 @@ function etype_newsletters_build_newsletter() {
   ));
 
   global $theme_key;
+  echo $theme_key;
   $logo_url = theme_get_setting('logo_path', $theme_key);
-  print $logo_url;
+  echo $logo_url;
 
   $template = $twig->load('white-blue.html');
   //echo $template->render([
