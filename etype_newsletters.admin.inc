@@ -222,15 +222,3 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   }
 
 }
-
-/**
- * Twig
- */
-function etype_newsletters_build_newsletter() {
-  require_once '/data/web/vendor/autoload.php';
-  $template_path = drupal_get_path('module', 'etype_newsletters') ;
-  $loader = new Twig_Loader_Filesystem($template_path . '/templates');
-  $twig = new Twig_Environment($loader, array(
-    'cache' => '/tmp',
-  ));
-}

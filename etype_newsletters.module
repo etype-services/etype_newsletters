@@ -71,7 +71,7 @@ function etype_newsletters_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => ['etype_newsletters_build_newsletter'],
     'access arguments' => ['administer etype newsletters'],
-    'file' => 'etype_newsletters.admin.inc',
+    'file' => 'etype_newsletters.twig.inc',
     'type' => MENU_CALLBACK,
   ];
 
