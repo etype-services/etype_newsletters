@@ -14,7 +14,7 @@ function etype_newsletters_build_newsletter() {
   $template_path = drupal_get_path('module', 'etype_newsletters') ;
   $loader = new Twig_Loader_Filesystem($template_path . '/templates');
   $twig = new Twig_Environment($loader, array(
-    'cache' => '/tmp',
+    'cache' => false,
   ));
 
   $logo = theme_get_setting('logo');
