@@ -17,7 +17,7 @@ function etype_newsletters_build_newsletter() {
     'cache' => false,
   ));
 
-  global $theme_key;
+  $theme_key = variable_get('theme_default');
   echo $theme_key;
   $logo_url = theme_get_setting('logo_path', $theme_key);
   echo $logo_url;
