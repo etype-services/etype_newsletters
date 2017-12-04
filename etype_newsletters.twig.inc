@@ -17,10 +17,11 @@ function etype_newsletters_build_newsletter() {
     'cache' => false,
   ));
 
-  $logo = theme_get_setting('logo');
+  $logo_url = theme_get_setting('logo_path');
+  print $logo_url;
 
   $template = $twig->load('white-blue.html');
   echo $template->render([
-    'logo' => $logo,
+    'logo_url' => $logo_url,
   ]);
 }
