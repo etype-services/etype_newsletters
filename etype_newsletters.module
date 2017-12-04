@@ -72,7 +72,7 @@ function etype_newsletters_menu() {
     'page arguments' => ['etype_newsletters_build_newsletter'],
     'access arguments' => ['administer etype newsletters'],
     'file' => 'etype_newsletters.admin.inc',
-    'type' => MENU_NORMAL_ITEM,
+    'type' => MENU_CALLBACK,
   ];
 
   return $items;
