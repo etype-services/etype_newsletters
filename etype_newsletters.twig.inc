@@ -19,10 +19,10 @@ function etype_newsletters_build_newsletter() {
 
   $theme_key = variable_get('theme_default');
   $logo_url = file_create_url(theme_get_setting('logo_path', $theme_key));
-  echo $logo_url;
 
   $template = $twig->load('white-blue.html');
-  //echo $template->render([
-  //  'logo_url' => $logo_url,
-  //]);
+  $page['#markup'] = $template->render([
+    'logo_url' => $logo_url,
+  ]);
+  return $page;
 }
