@@ -21,8 +21,9 @@ function etype_newsletters_build_newsletter() {
   $logo_url = file_create_url(theme_get_setting('logo_path', $theme_key));
 
   $template = $twig->load('white-blue.html');
-  $page['#markup'] = $template->render([
+  $content = $template->render([
     'logo_url' => $logo_url,
   ]);
-  return $page;
+
+  echo $content;
 }
