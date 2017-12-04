@@ -66,6 +66,15 @@ function etype_newsletters_menu() {
     'type' => MENU_CALLBACK,
   ];
 
+  $items['admin/etype_newsletters/build_newsletter'] = [
+    'title' => 'Build eType Newsletter',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => ['etype_newsletters_build_newsletter'],
+    'access arguments' => ['administer etype newsletters'],
+    'file' => 'etype_newsletters.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  ];
+
   return $items;
 }
 

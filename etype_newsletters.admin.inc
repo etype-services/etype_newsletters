@@ -101,8 +101,6 @@ function etype_newsletters_admin_confirm_form() {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
 
-    //dpm($_POST);
-
     $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
     $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
     if (isset($_POST['etype_newsletter_is_test'])) {
@@ -223,4 +221,15 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
     drupal_set_message("No content selected. The newsletter was not sent.", 'warning');
   }
 
+}
+
+/**
+ * Twig
+ */
+function etype_newsletters_build_newsletter() {
+  require_once '/data/web/vendor/autoload.php';
+  $loader = new Twig_Loader_Filesystem('./templates');
+  $twig = new Twig_Environment($loader, array(
+    'cache' => '/tmp',
+  ));
 }
