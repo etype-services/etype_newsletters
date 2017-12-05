@@ -13,9 +13,9 @@
  */
 function etype_newsletters_build_newsletter($nids = []) {
 
-  //if (empty($nids)) {
-  // $nids = ['193651', '193653'];
-  //}
+  if (empty($nids)) {
+   $nids = ['193651', '193653'];
+  }
 
   require_once '/data/web/vendor/autoload.php';
   $template_path = drupal_get_path('module', 'etype_newsletters') ;
