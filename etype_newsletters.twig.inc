@@ -32,16 +32,12 @@ function etype_newsletters_build_newsletter($nids = []) {
   ]);
 
   // get node data
-  var_dump($nids);
   if (!empty($nids)) {
-    var_dump($nids);
     $nodes = entity_load('node', $nids);
-    var_dump($nodes);
     foreach ($nodes as $node) {
       dpm($node);
     }
   }
 
   // echo $content;
-  exit;
 }
