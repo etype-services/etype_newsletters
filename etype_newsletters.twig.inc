@@ -58,7 +58,7 @@ function etype_newsletters_build_newsletter($nids = []) {
     'logo_url' => $logo_src,
     'featured_image' => $big_image_src,
     'site_name' => $site_name,
-    'tiems' => $items,
+    'items' => $items,
   ]);
 
   echo $content;
