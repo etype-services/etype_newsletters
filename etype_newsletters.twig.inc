@@ -31,6 +31,7 @@ function etype_newsletters_build_newsletter($nids = []) {
   if (strtolower($str) !== 'the') {
     $site_name = 'the ' . $site_name;
   }
+  $items = [];
 
   // get node data
   if (!empty($nids)) {
@@ -44,6 +45,11 @@ function etype_newsletters_build_newsletter($nids = []) {
         }
       }
       $ptr = 2;
+      $body = empty($node->body['und'][0]['summary'])? substr($node->body['und'][0]['safe_value'], 0 , 100): $node->body['und'][0]['summary'];
+      $items[] = [
+        'title' => $node->title,
+        'body' => $body,
+      ];
     }
   }
 
@@ -52,6 +58,7 @@ function etype_newsletters_build_newsletter($nids = []) {
     'logo_url' => $logo_src,
     'featured_image' => $big_image_src,
     'site_name' => $site_name,
+    'tiems' => $items,
   ]);
 
   echo $content;
