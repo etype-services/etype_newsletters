@@ -7,9 +7,11 @@
  */
 
 /**
- * Twig
+ * @param array $nids
+ * Build Twig template
  */
-function etype_newsletters_build_newsletter() {
+function etype_newsletters_build_newsletter($nids = ['193651', '193653']) {
+
   require_once '/data/web/vendor/autoload.php';
   $template_path = drupal_get_path('module', 'etype_newsletters') ;
   $loader = new Twig_Loader_Filesystem($template_path . '/templates');
@@ -24,6 +26,14 @@ function etype_newsletters_build_newsletter() {
   $content = $template->render([
     'logo_url' => $logo_url,
   ]);
+
+  // get node data
+  if (!empty($nids)) {
+    $nodes = entity_load('node', $nids);
+    foreach ($nodes as $node) {
+      dpm($node);
+    }
+  }
 
   echo $content;
 }
