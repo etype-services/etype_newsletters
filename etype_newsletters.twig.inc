@@ -24,20 +24,30 @@ function etype_newsletters_build_newsletter($nids = []) {
   ));
 
   $theme_key = variable_get('theme_default');
-  $logo_url = file_create_url(theme_get_setting('logo_path', $theme_key));
-
-  $template = $twig->load('white-blue.html');
-  $content = $template->render([
-    'logo_url' => $logo_url,
-  ]);
+  $logo_src = file_create_url(theme_get_setting('logo_path', $theme_key));
+  $big_image_src = '';
 
   // get node data
   if (!empty($nids)) {
     $nodes = entity_load('node', $nids);
+    $ptr = 1;
     foreach ($nodes as $node) {
       dpm($node);
+      if ($ptr == 1) {
+        if (isset($node->field_image)) {
+          $big_image_src = file_create_url($node->field_image['und'][0]['uri']);
+        }
+      }
+      $ptr = 2;
     }
   }
 
-  // echo $content;
+
+  $template = $twig->load('white-blue.html');
+  $content = $template->render([
+    'logo_url' => $logo_src,
+    'featured_image' => $big_image_src,
+  ]);
+
+  echo $content;
 }
