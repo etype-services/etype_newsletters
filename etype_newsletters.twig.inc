@@ -28,6 +28,7 @@ function etype_newsletters_build_newsletter($nids = ['193651', '193653']) {
   ]);
 
   // get node data
+  var_dump($nids);
   if (!empty($nids)) {
     var_dump($nids);
     $nodes = entity_load('node', $nids);
