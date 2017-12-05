@@ -42,7 +42,8 @@ function etype_newsletters_build_newsletter($nids = []) {
       $body = empty($node->body['und'][0]['summary'])? substr($node->body['und'][0]['safe_value'], 0 , 100): $node->body['und'][0]['summary'];
       $alias = drupal_get_path_alias('node/' . $node->nid);
       $url = $GLOBALS['base_url'] . '/' . $alias;
-      $image_src = file_create_url(image_style_url('thumbnail', $node->field_image['und'][0]['uri']));
+      $image_src = image_style_url('thumbnail', $node->field_image['und'][0]['uri']);
+      echo $image_src;
       $items[] = [
         'title' => $node->title,
         'body' => $body,
@@ -60,7 +61,7 @@ function etype_newsletters_build_newsletter($nids = []) {
     'items' => $items,
   ]);
 
-  echo $content;
+  // echo $content;
 
   // return $content;
 }
