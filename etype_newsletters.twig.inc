@@ -27,6 +27,10 @@ function etype_newsletters_build_newsletter($nids = []) {
   $logo_src = file_create_url(theme_get_setting('logo_path', $theme_key));
   $big_image_src = '';
   $site_name = variable_get('site_name');
+  $str = substr($site_name, 0, 3);
+  if (strtolower($str) !== 'the') {
+    $site_name = 'the ' . $site_name;
+  }
 
   // get node data
   if (!empty($nids)) {
