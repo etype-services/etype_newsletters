@@ -31,7 +31,7 @@ function etype_newsletters_build_newsletter($nids = ['193651', '193653']) {
   if (!empty($nids)) {
     $nodes = entity_load('node', $nids);
     foreach ($nodes as $node) {
-      dpm($node);
+      var_dump($node);
     }
   }
 
