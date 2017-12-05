@@ -46,9 +46,12 @@ function etype_newsletters_build_newsletter($nids = []) {
       }
       $ptr = 2;
       $body = empty($node->body['und'][0]['summary'])? substr($node->body['und'][0]['safe_value'], 0 , 100): $node->body['und'][0]['summary'];
+      $alias = drupal_get_path_alias('node/' . $node->nid);
+      $url = $GLOBALS['base_url'] . '/' . $alias;
       $items[] = [
         'title' => $node->title,
         'body' => $body,
+        'url' => $url,
       ];
     }
   }
