@@ -6,6 +6,8 @@
  * Time: 11:49 a.m.
  */
 
+require('etype_newsletters.twig.inc');
+
 /**
  * @return mixed
  */
