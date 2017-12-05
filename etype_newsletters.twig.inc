@@ -43,7 +43,6 @@ function etype_newsletters_build_newsletter($nids = []) {
       $alias = drupal_get_path_alias('node/' . $node->nid);
       $url = $GLOBALS['base_url'] . '/' . $alias;
       $image_src = image_style_url('thumbnail', $node->field_image['und'][0]['uri']);
-      echo $image_src;
       $items[] = [
         'title' => $node->title,
         'body' => $body,
@@ -61,7 +60,7 @@ function etype_newsletters_build_newsletter($nids = []) {
     'items' => $items,
   ]);
 
-  // echo $content;
+  echo $content;
 
   // return $content;
 }
