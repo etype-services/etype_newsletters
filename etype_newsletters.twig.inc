@@ -36,4 +36,5 @@ function etype_newsletters_build_newsletter($nids = ['193651', '193653']) {
   }
 
   // echo $content;
+  exit;
 }
