@@ -37,22 +37,17 @@ function etype_newsletters_build_newsletter($nids = []) {
   // get node data
   if (!empty($nids)) {
     $nodes = entity_load('node', $nids);
-    $ptr = 1;
     foreach ($nodes as $node) {
       dpm($node);
-      if ($ptr == 1) {
-        if (isset($node->field_image)) {
-          $big_image_src = file_create_url($node->field_image['und'][0]['uri']);
-        }
-      }
-      $ptr = 2;
       $body = empty($node->body['und'][0]['summary'])? substr($node->body['und'][0]['safe_value'], 0 , 100): $node->body['und'][0]['summary'];
       $alias = drupal_get_path_alias('node/' . $node->nid);
       $url = $GLOBALS['base_url'] . '/' . $alias;
+      $image_src = file_create_url(image_style_url('thumbnail', $node->field_image['und'][0]['uri']));
       $items[] = [
         'title' => $node->title,
         'body' => $body,
         'url' => $url,
+        'image_src' => $image_src,
       ];
     }
   }
