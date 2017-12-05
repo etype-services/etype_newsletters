@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-<tr>
     {% for item in items %}
+        <tr>
         <td valign="top" class="specbundle">
             <table width="100%" border="0" cellspacing="0"
                    cellpadding="0">
@@ -51,6 +51,6 @@
                 </tbody>
             </table>
         </td>
+        </tr>
     {% endfor %}
-</tr>
 {% endblock %}
