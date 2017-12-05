@@ -10,7 +10,7 @@
  * @param array $nids
  * Build Twig template
  */
-function etype_newsletters_build_newsletter($nids = ['193651', '193653']) {
+function etype_newsletters_build_newsletter($nids = array('193651', '193653')) {
 
   require_once '/data/web/vendor/autoload.php';
   $template_path = drupal_get_path('module', 'etype_newsletters') ;
