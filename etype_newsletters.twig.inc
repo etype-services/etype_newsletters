@@ -48,7 +48,7 @@ function etype_newsletters_build_newsletter($nids = []) {
   }
 
 
-  $template = $twig->load('white-blue.html');
+  $template = $twig->load('base.html');
   $content = $template->render([
     'logo_url' => $logo_src,
     'featured_image' => $big_image_src,
