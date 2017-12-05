@@ -38,7 +38,7 @@ function etype_newsletters_build_newsletter($nids = []) {
   if (!empty($nids)) {
     $nodes = entity_load('node', $nids);
     foreach ($nodes as $node) {
-      dpm($node);
+      // dpm($node);
       $body = empty($node->body['und'][0]['summary'])? substr($node->body['und'][0]['safe_value'], 0 , 100): $node->body['und'][0]['summary'];
       $alias = drupal_get_path_alias('node/' . $node->nid);
       $url = $GLOBALS['base_url'] . '/' . $alias;
