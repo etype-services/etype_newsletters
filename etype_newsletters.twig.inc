@@ -60,5 +60,7 @@ function etype_newsletters_build_newsletter($nids = []) {
     'items' => $items,
   ]);
 
-  return $content;
+  echo $content;
+
+  // return $content;
 }
