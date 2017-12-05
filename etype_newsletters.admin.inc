@@ -157,7 +157,6 @@ function etype_newsletters_admin_confirm_form() {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
-  $content = '';
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $subject = $form['etype_newsletter_subject']['#value'];
   $test = $form['etype_newsletter_is_test']['#value'];
@@ -168,19 +167,16 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
   if (count($nids) > 0) {
 
+    $clean_nids = [];
     foreach ($nids as $nid) {
-      $nid = trim($nid);
       if (is_numeric($nid)) {
-        $node = node_load($nid);
-        $view = node_view($node, 'teaser'); // use teaser mode
-        $content .= drupal_render($view);   // needs cleaning up to remove links
+        $clean_nids[] = trim($nid);
       }
     }
-
     // send rendered content to subscriber system
     $pub_id = variable_get('etype_pub');
     if (!empty($pub_id)) {
-
+      $content = etype_newsletters_build_newsletter($clean_nids);
       ini_set("soap.wsdl_cache_enabled", "0");
       $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' => $content);
       // is this a test?
