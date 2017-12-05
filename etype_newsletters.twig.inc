@@ -26,6 +26,7 @@ function etype_newsletters_build_newsletter($nids = []) {
   $theme_key = variable_get('theme_default');
   $logo_src = file_create_url(theme_get_setting('logo_path', $theme_key));
   $big_image_src = '';
+  $site_name = variable_get('site_name');
 
   // get node data
   if (!empty($nids)) {
@@ -47,6 +48,7 @@ function etype_newsletters_build_newsletter($nids = []) {
   $content = $template->render([
     'logo_url' => $logo_src,
     'featured_image' => $big_image_src,
+    'site_name' => $site_name,
   ]);
 
   echo $content;
