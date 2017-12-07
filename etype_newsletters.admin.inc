@@ -125,7 +125,7 @@ function etype_newsletters_admin_confirm_form() {
 
     } else {
       $pub_id = variable_get('etype_pub');
-      if ($pub_id === 4941) {
+      if ($pub_id == '4149') {
         $message = "Click Send to send the newsletter to the Test Group.";
       } else {
         $message = "Click Send to send the newsletter to subscribers now.";
