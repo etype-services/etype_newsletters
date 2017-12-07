@@ -103,8 +103,6 @@ function etype_newsletters_admin_confirm_form() {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
 
-    dpm($_POST);
-
     $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
     $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
     $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
@@ -168,15 +166,10 @@ function etype_newsletters_admin_confirm_form() {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
-  dpm($form);
-
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $subject = $form['etype_newsletter_subject']['#value'];
   $test = $form['etype_newsletter_is_test']['#value'];
   $email = $form['etype_newsletter_test_email']['#value'];
-
-  dpm($test);
-  dpm($email);
 
   if (count($nids) > 0) {
 
