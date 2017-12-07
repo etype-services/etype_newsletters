@@ -120,6 +120,7 @@ function etype_newsletters_admin_confirm_form() {
       } else {
         drupal_set_message("The test email is not valid. Please check it and try again.", 'error');
         drupal_goto('admin/config/etype/etype_newsletters/send');
+        return;
       }
 
     } else {
