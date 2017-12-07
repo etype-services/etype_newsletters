@@ -124,7 +124,12 @@ function etype_newsletters_admin_confirm_form() {
       }
 
     } else {
-      $message = "Click Send to send the newsletter to subscribers now.";
+      $pub_id = variable_get('etype_pub');
+      if ($pub_id === 4941) {
+        $message = "Click Send to send the newsletter to the Test Group.";
+      } else {
+        $message = "Click Send to send the newsletter to subscribers now.";
+      }
     }
 
     $form['#attributes']['class'][] = 'confirmation';
