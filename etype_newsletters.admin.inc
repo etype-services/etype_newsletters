@@ -111,7 +111,7 @@ function etype_newsletters_admin_confirm_form() {
       $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'no');
     }
 
-    if (isset($_POST['etype_newsletter_test_email'])) {
+    if (isset($_POST['etype_newsletter_is_test'])) {
 
       $email = trim(filter_xss($_POST['etype_newsletter_test_email']));
       $true = valid_email_address($email);
