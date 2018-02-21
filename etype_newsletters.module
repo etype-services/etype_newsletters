@@ -16,15 +16,15 @@ function etype_newsletters_permission() {
  * Create custom VBO action
  */
 function etype_newsletters_action_info() {
-  return array (
-    'etype_newsletters_add_nodes' => array(
+  return [
+    'etype_newsletters_add_nodes' => [
       'type' => 'node',
       'label' => t('Add to newsletter'),
       'configurable' => FALSE,
-      'triggers' => array('any'),
+      'triggers' => ['any'],
       'pass rows' => TRUE,
-    ),
-  );
+    ],
+  ];
 }
 
 /**
