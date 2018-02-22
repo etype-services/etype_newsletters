@@ -101,8 +101,6 @@ function etype_newsletters_admin_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form() {
 
-  var_dump($_POST);
-
   if (isset($_POST['etype_newsletter_nodes'])) {
 
     $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
