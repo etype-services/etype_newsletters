@@ -109,7 +109,7 @@ function etype_newsletters_admin_confirm_form() {
     $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
     $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
 
-    if (isset($_POST['etype_newsletter_is_test']) && $_POST['etype_newsletter_is_test'] === 'yes') {
+    if (isset($_POST['etype_newsletter_is_test']) && $_POST['etype_newsletter_is_test']["yes"] === 'yes') {
 
       $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'yes');
       $email = trim(filter_xss($_POST['etype_newsletter_test_email']));
