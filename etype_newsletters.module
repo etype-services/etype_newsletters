@@ -22,7 +22,6 @@ function etype_newsletters_action_info() {
       'label' => t('Add to newsletter'),
       'configurable' => FALSE,
       'triggers' => ['any'],
-      'pass rows' => TRUE,
     ],
   ];
 }
