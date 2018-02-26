@@ -20,7 +20,7 @@ function etype_newsletters_build_newsletter($nids = []) {
    $nids = ['193651', '193653'];
   }
 
-  require_once '/data/web/vendor/autoload.php';
+  require_once 'vendor/autoload.php';
   $template_path = drupal_get_path('module', 'etype_newsletters') ;
   $loader = new Twig_Loader_Filesystem($template_path . '/templates');
   $twig = new Twig_Environment($loader, array(
