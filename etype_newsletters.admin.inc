@@ -202,8 +202,8 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
       $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
       $response = $client->EmailtoListViaDrupal($params);
 
-      //dpm($response);
-      //dpm($content);
+      dpm($response);
+      dpm($content);
 
       if ($response->EmailtoListViaDrupalResult !== 1) {
         drupal_set_message("An error ocurred, and the newsletter may not have been sent. Please contact eType Customer Service.", 'error');
