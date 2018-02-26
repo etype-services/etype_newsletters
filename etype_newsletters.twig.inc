@@ -8,8 +8,11 @@
 
 /**
  * @param array $nids
- * @return mixed
- * Build Twig template
+ *
+ * @return string
+ * @throws \Twig_Error_Loader
+ * @throws \Twig_Error_Runtime
+ * @throws \Twig_Error_Syntax
  */
 function etype_newsletters_build_newsletter($nids = []) {
 
