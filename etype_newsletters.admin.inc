@@ -174,6 +174,8 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   $test = $form['etype_newsletter_is_test']['#value'];
   $email = $form['etype_newsletter_test_email']['#value'];
 
+  echo $test;
+
   if (count($nids) > 0) {
 
     $clean_nids = [];
