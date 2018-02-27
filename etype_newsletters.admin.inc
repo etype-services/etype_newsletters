@@ -99,9 +99,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
 /**
  * @return mixed
  */
-function etype_newsletters_admin_confirm_form() {
-
-  $form =[];
+function etype_newsletters_admin_confirm_form($form, &$form_state) {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
 
