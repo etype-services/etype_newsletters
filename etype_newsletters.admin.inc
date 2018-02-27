@@ -99,7 +99,9 @@ function etype_newsletters_admin_form($form, &$form_state) {
 /**
  * @return mixed
  */
-function etype_newsletters_admin_confirm_form($form, &$form_state) {
+function etype_newsletters_admin_confirm_form() {
+
+  $form =[];
 
   if (isset($_POST['etype_newsletter_nodes'])) {
 
@@ -119,7 +121,7 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     if (isset($_POST['etype_newsletter_is_test'])) {
       if (isset($_POST['etype_newsletter_is_test']["yes"])) {
         if ($_POST['etype_newsletter_is_test']["yes"] === 'yes') {
-          form_set_value($form['etype_newsletter_is_test'], 'yes', $form_state);
+          $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'yes');
           $email = trim(filter_xss($_POST['etype_newsletter_test_email']));
           $true = valid_email_address($email);
           if ($true === true) {
