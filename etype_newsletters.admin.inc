@@ -194,7 +194,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
       ini_set("soap.wsdl_cache_enabled", "0");
       $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' => $content);
       // is this a test?
-      if ($test === 'yes') {
+      if ($test !== 'no') {
         // validate email address
         $true = valid_email_address($email);
         if ($true === true) {
