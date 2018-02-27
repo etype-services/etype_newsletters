@@ -99,7 +99,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
 /**
  * @return mixed
  */
-function etype_newsletters_admin_confirm_form() {
+function etype_newsletters_admin_confirm_form($form, &$form_state) {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
 
@@ -119,7 +119,7 @@ function etype_newsletters_admin_confirm_form() {
     if (isset($_POST['etype_newsletter_is_test'])) {
       if (isset($_POST['etype_newsletter_is_test']["yes"])) {
         if ($_POST['etype_newsletter_is_test']["yes"] === 'yes') {
-          $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'yes');
+          form_set_value($form['etype_newsletter_is_test'], 'yes', $form_state);
           $email = trim(filter_xss($_POST['etype_newsletter_test_email']));
           $true = valid_email_address($email);
           if ($true === true) {
@@ -169,15 +169,15 @@ function etype_newsletters_admin_confirm_form() {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
-  $nids = explode(' ', $form_state['values']['etype_newsletter_nodes']);
-  $subject = $form_state['values']['etype_newsletter_subject'];
-  $test = $form_state['values']['etype_newsletter_is_test'];
-  $email = $form_state['values']['etype_newsletter_test_email'];
-
   var_dump($form);
+  var_dump($form_state);
+
+  $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
+  $subject = $form['etype_newsletter_subject']['#value'];
+  $test = $form['etype_newsletter_is_test']['#value'];
+  $email = $form['etype_newsletter_test_email']['#value'];
 
   echo $test;
-  exit;
 
   if (count($nids) > 0) {
 
