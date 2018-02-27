@@ -169,7 +169,6 @@ function etype_newsletters_admin_confirm_form() {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
-  var_dump($form);
   var_dump($form_state);
 
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
