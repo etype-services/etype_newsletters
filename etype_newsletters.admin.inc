@@ -174,7 +174,9 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   $test = $form_state['values']['etype_newsletter_is_test'];
   $email = $form_state['values']['etype_newsletter_test_email'];
 
+  var_dump($form_state['values']);
   echo $test;
+  exit;
 
   if (count($nids) > 0) {
 
