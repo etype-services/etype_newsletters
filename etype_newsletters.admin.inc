@@ -199,8 +199,12 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
           drupal_goto('admin/config/etype/etype_newsletters/send');
         }
       }
+
+      var_dump($params);
+      exit;
+
       $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
-      $response = $client->EmailtoListViaDrupal($params);
+      // $response = $client->EmailtoListViaDrupal($params);
 
       dpm($response);
       dpm($content);
