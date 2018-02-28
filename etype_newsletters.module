@@ -46,7 +46,7 @@ function etype_newsletters_add_nodes(&$node, $context) {
  */
 function etype_newsletters_menu() {
 
-  $items['admin/config/etype/etype_newsletters/send'] = [
+  $items['admin/config/etype_newsletters/send'] = [
     'title' => 'Create eType Newsletter',
     'description' => 'Send a newsletter.',
     'page callback' => 'drupal_get_form',
