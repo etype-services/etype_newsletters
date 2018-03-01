@@ -32,7 +32,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
   $pub_id = variable_get('etype_pub');
   if (empty($pub_id)) {
     $form['etype_newsletter_nodes'] = [
-      '#markup' => '<p>Please set eType Pub Id in eType Settings.<a/>.</p>',
+      '#markup' => '<p>Please set eType Pub Id in eType Settings<a/>.</p>',
     ];
     return $form;
   } else {
