@@ -212,7 +212,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
       $response = $client->EmailtoListViaDrupal($params);
 
       dpm($response);
-      dpm($content);
+      //dpm($content);
 
       if ($response->EmailtoListViaDrupalResult !== 1) {
         drupal_set_message("An error ocurred, and the newsletter may not have been sent. Please contact eType Customer Service.", 'error');
