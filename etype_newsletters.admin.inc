@@ -105,6 +105,18 @@ function etype_newsletters_admin_form($form, &$form_state) {
 }
 
 /**
+ * @param $form
+ * @param $form_state
+ */
+function etype_newsletters_admin_form_validate($form, &$form_state){
+
+  if (!is_array($form_state['values']['etype_newsletter_subscriber_type'])) {
+    form_set_error('etype_newsletter_subscriber_type', t('Please make a choice'));
+  }
+
+}
+
+/**
  * @return mixed
  */
 function etype_newsletters_admin_confirm_form($form, &$form_state) {
