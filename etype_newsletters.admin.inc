@@ -66,7 +66,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
       $form['etype_newsletter_subscriber_type'] = [
         '#title' => t('Subscriber Type'),
         '#description' => t("Choose the subscriber type for this mailing."),
-        '#type' => 'checkboxes',
+        '#type' => 'radio',
         '#options' => ['regular' => 'Regular', 'newsalerts' => 'News Alerts'],
         '#default_value' => [],
         '#required' => true,
@@ -186,11 +186,12 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
-  var_dump($form);
-  var_dump($form_state);
-  exit;
+  //var_dump($form);
+  //var_dump($form_state);
+  //exit;
 
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
+  $types = explode(' ', $form['etype_newsletter_subscriber_type']['#value']);
   $subject = $form['etype_newsletter_subject']['#value'];
   $test = $form_state['input']['etype_newsletter_is_test']; // why?
   $email = $form['etype_newsletter_test_email']['#value'];
