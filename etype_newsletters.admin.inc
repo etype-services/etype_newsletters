@@ -69,6 +69,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
         '#type' => 'checkboxes',
         '#options' => ['regular' => 'Regular', 'newsalerts' => 'News Alerts'],
         '#default_value' => [],
+        '#required' => true,
       ];
 
       $form['etype_newsletter_is_test'] = [
@@ -89,7 +90,6 @@ function etype_newsletters_admin_form($form, &$form_state) {
       ];
 
       $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Send Newsletter'));
-      $form['#validate'] = 'etype_newsletters_admin_form_validate';
       $form['#action'] = '/admin/config/etype_newsletters/confirm_send';
       return $form;
 
@@ -105,17 +105,6 @@ function etype_newsletters_admin_form($form, &$form_state) {
 
 }
 
-/**
- * @param $form
- * @param $form_state
- */
-function etype_newsletters_admin_form_validate($form, &$form_state){
-
-  if (!is_array($form_state['values']['etype_newsletter_subscriber_type'])) {
-    form_set_error('etype_newsletter_subscriber_type', t('Please make a choice'));
-  }
-
-}
 
 /**
  * @return mixed
