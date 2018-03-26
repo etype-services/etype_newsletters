@@ -89,6 +89,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
       ];
 
       $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Send Newsletter'));
+      $form['#validate'] = 'etype_newsletters_admin_form_validate';
       $form['#action'] = '/admin/config/etype_newsletters/confirm_send';
       return $form;
 
