@@ -187,8 +187,8 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
   //var_dump($form);
-  //var_dump($form_state);
-  //exit;
+  var_dump($form_state);
+  exit;
 
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $types = explode(' ', $form['etype_newsletter_subscriber_type']['#value']);
