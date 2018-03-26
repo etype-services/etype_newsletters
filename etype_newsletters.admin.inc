@@ -67,7 +67,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
         '#title' => t('Subscriber Type'),
         '#description' => t("Choose the subscriber type for this mailing."),
         '#type' => 'radios',
-        '#options' => ['regular' => 'Regular', 'news_alerts' => 'News Alerts'],
+        '#options' => ['Regular' => 'Regular', 'NewsAlerts' => 'News Alerts'],
         '#required' => true,
       ];
 
@@ -186,11 +186,11 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
   //var_dump($form);
-  var_dump($form_state);
-  exit;
+  // var_dump($form_state);
+  // exit;
 
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
-  $types = explode(' ', $form['etype_newsletter_subscriber_type']['#value']);
+  $type = $form['etype_newsletter_subscriber_type']['#value'];
   $subject = $form['etype_newsletter_subject']['#value'];
   $test = $form_state['input']['etype_newsletter_is_test']; // why?
   $email = $form['etype_newsletter_test_email']['#value'];
@@ -210,7 +210,12 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
     if (!empty($pub_id)) {
       $content = etype_newsletters_build_newsletter($clean_nids);
       ini_set("soap.wsdl_cache_enabled", "0");
-      $params = array('PubID' => $pub_id, 'Subject' => $subject, 'MailBody' => $content);
+      $params = [
+        'PubID' => $pub_id,
+        'Subject' => $subject,
+        'MailBody' => $content,
+        'SubscriberType' => $type,
+      ];
       // is this a test?
       if ($test !== 'no') {
         // validate email address
@@ -223,8 +228,8 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         }
       }
 
-      // var_dump($params);
-      // exit;
+      var_dump($params);
+      exit;
 
       //$client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
       //$response = $client->EmailtoListViaDrupal($params);
