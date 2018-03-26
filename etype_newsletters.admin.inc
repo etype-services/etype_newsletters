@@ -186,16 +186,14 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
   //var_dump($form);
-  // var_dump($form_state);
-  // exit;
+  //var_dump($form_state);
+  //exit;
 
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $type = $form['etype_newsletter_subscriber_type']['#value'];
   $subject = $form['etype_newsletter_subject']['#value'];
   $test = $form_state['input']['etype_newsletter_is_test']; // why?
   $email = $form['etype_newsletter_test_email']['#value'];
-
-  //echo $test;
 
   if (count($nids) > 0) {
 
@@ -228,11 +226,11 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         }
       }
 
-      var_dump($params);
-      exit;
+      //var_dump($params);
+      //exit;
 
-      //$client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
-      //$response = $client->EmailtoListViaDrupal($params);
+      $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
+      $response = $client->EmailtoListViaDrupal($params);
 
       // dpm($response);
       // dpm($content);
