@@ -116,7 +116,7 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     var_dump($_POST);
 
     if (!is_array($_POST('etype_newsletter_subscriber_type'))) {
-      drupal_set_message("Please choose a Subscriber Type.", 'error');
+      drupal_set_message("Please choose at least one Subscriber Type.", 'error');
       drupal_goto('admin/config/etype_newsletters/send');
       exit;
     }
