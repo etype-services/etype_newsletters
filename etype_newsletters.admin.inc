@@ -66,7 +66,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
       $form['etype_newsletter_subscriber_type'] = [
         '#title' => t('Subscriber Type'),
         '#description' => t("Choose the subscriber type for this mailing."),
-        '#type' => 'radio',
+        '#type' => 'radios',
         '#options' => ['regular' => 'Regular', 'newsalerts' => 'News Alerts'],
         '#default_value' => [],
         '#required' => true,
