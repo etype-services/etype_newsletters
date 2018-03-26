@@ -63,6 +63,14 @@ function etype_newsletters_admin_form($form, &$form_state) {
         '#default_value' => 'Test Newsletter',
       ];
 
+      $form['etype_newsletter_subscriber_type'] = [
+        '#title' => t('Subscriber Type'),
+        '#description' => t("Choose the subscriber type for this mailing."),
+        '#type' => 'checkboxes',
+        '#options' => ['regular' => 'Regular', 'newsalerts' => 'News Alerts'],
+        '#default_value' => [],
+      ];
+
       $form['etype_newsletter_is_test'] = [
         '#title' => t('Send newsletter to test email'),
         '#description' => t("If checked, the newsletter will only be sent to the test email below."),
@@ -102,6 +110,8 @@ function etype_newsletters_admin_form($form, &$form_state) {
 function etype_newsletters_admin_confirm_form($form, &$form_state) {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
+
+    var_dump($_POST);
 
     $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
     $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
