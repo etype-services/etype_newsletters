@@ -54,6 +54,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
         '#type' => 'checkboxes',
         '#options' => $options,
         '#default_value' => $nids,
+        '#required' => true,
       ];
 
       $form['etype_newsletter_subject'] = [
@@ -61,6 +62,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
         '#description' => t("Enter a subject line for the newsletter."),
         '#type' => 'textfield',
         '#default_value' => 'Test Newsletter',
+        '#required' => true,
       ];
 
       $form['etype_newsletter_subscriber_type'] = [
