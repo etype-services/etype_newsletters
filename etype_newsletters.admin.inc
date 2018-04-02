@@ -143,13 +143,13 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
 
     // turn date into timestamp
-    //$date_array = $_POST['etype_newsletter_queue_date'];
+    $date_array = $_POST['etype_newsletter_queue_date'];
     //var_dump($date_array);
-    //$queue_time = sprintf('%04d', $date_array["year"]) . '-' . sprintf('%02d', $date_array["month"]) . '-' . sprintf('%02d', $date_array["day"]) . ' ' . $date_array["hour"] . ':' . $date_array["minute"];
+    $queue_time = sprintf('%04d', $date_array["year"]) . '-' . sprintf('%02d', $date_array["month"]) . '-' . sprintf('%02d', $date_array["day"]) . ' ' . $date_array["hour"] . ':' . $date_array["minute"];
     //var_dump($queue_time);
-    //$queue_date = new DateTime($queue_time);
-    //$send_date = $queue_date->format('U');
-    //$form['etype_newsletter_queue_date'] = array('#type' => 'hidden', '#value' => filter_xss($send_date));
+    $queue_date = new DateTime($queue_time);
+    $send_date = $queue_date->format('U');
+    $form['etype_newsletter_queue_date'] = array('#type' => 'hidden', '#value' => filter_xss($send_date));
 
     $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'no');
     $pub_id = variable_get('etype_pub');
@@ -263,13 +263,14 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         $formatted = $date->format('m/d/Y H:i');
         drupal_set_message("The newsletter will be sent to $type on $formatted.");
         drupal_goto('admin/config/etype_newsletters/send');
+        exit;
 
       } else {
 
         $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
         $response = $client->EmailtoListViaDrupal($params);
 
-        // dpm($response);
+        dpm($response);
         // dpm($content);
 
         if ($response->EmailtoListViaDrupalResult !== 1) {
