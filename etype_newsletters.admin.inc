@@ -24,6 +24,7 @@ function etype_newsletters_get_selected_nodes() {
 
 /**
  * Send Newsletter form
+ * @param $form
  * @param $form_state
  * @return array
  */
@@ -74,7 +75,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
         '#description' => t("Choose the subscriber type for this mailing."),
         '#type' => 'radios',
         '#options' => ['Regular' => 'Regular', 'NewsAlerts' => 'News Alerts'],
-        '#default' => 'Regular',
+        '#default' => ['Regular'],
         '#required' => true,
       ];
 
