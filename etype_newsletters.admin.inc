@@ -129,9 +129,6 @@ function etype_newsletters_admin_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form($form, &$form_state) {
 
-  var_dump($_POST);
-  exit;
-
   if (isset($_POST['etype_newsletter_nodes'])) {
 
     if (!isset($_POST['etype_newsletter_subscriber_type'])) {
