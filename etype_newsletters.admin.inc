@@ -129,6 +129,12 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
 
+    if (!isset($_POST['etype_newsletter_subscriber_type'])) {
+      drupal_set_message("Please choose at least one Subscriber Type.", 'error');
+      drupal_goto('admin/config/etype_newsletters/send');
+      exit;
+    }
+
     // turn date into timestamp
     $date_array = $_POST['etype_newsletter_queue_date'];
     $queue_date = new DateTime($date_array['year'] . '-' . $date_array['month'] . '-' . $date_array['day'] . ' ' . $date_array['hour'] . ':' . $date_array['minute']);
@@ -138,12 +144,6 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     // is send date in the future?
     if ($now < $send_date) {
       echo "send in future";
-      exit;
-    }
-
-    if (!isset($_POST['etype_newsletter_subscriber_type'])) {
-      drupal_set_message("Please choose at least one Subscriber Type.", 'error');
-      drupal_goto('admin/config/etype_newsletters/send');
       exit;
     }
 
