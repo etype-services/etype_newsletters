@@ -35,11 +35,27 @@ function etype_newsletters_admin_form($form, &$form_state) {
       '#markup' => '<p>Please set eType Pub Id in eType Settings<a/>.</p>',
     ];
     return $form;
+
   } else {
 
     $form = [];
     $nids = etype_newsletters_get_selected_nodes();
     if (count($nids) > 0) {
+
+      $date = format_date(REQUEST_TIME, 'custom', 'Y-m-d H:i:s');
+      $format = 'Y-m-d H:i';
+
+      $form['date'] = [
+        '#type' => 'date_select',
+        '#title' => t('Queue Newsletter'),
+        '#description' => t("Optionally select a date &amp; time to send newsletter."),
+        '#default_value' => $date,
+        '#date_format' => $format,
+        '#date_label_position' => 'within', // See other available attributes and what they do in date_api_elements.inc
+        '#date_timezone' => 'America/Chicago', // Optional, if your date has a timezone other than the site timezone.
+        '#date_increment' => 15, // Optional, used by the date_select and date_popup elements to increment minutes and seconds.
+        '#date_year_range' => '-0:+1', // Optional, used to set the year range (back 3 years and forward 3 years is the default).
+      ];
 
       $options = [];
       foreach ($nids as $nid) {

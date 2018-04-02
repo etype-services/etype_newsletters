@@ -6,5 +6,6 @@ project = "etype_newsletters"
 dependencies[] = etype
 dependencies[] = views_bulk_operations
 dependencies[] = admin_views
+dependencies[] = date
 files[] = etype_newsletters.admin.inc
 files[] = etype_newsletters.twig.inc
