@@ -213,12 +213,14 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
+  dpm($form);
+
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $type = $form['etype_newsletter_subscriber_type']['#value'];
   $subject = $form['etype_newsletter_subject']['#value'];
   $test = $form_state['input']['etype_newsletter_is_test']; // why?
   $email = $form['etype_newsletter_test_email']['#value'];
-  $send_date = (int) $form['etype_newsletter_queue_date']['#value'];
+  $send_date = $form['etype_newsletter_queue_date']['#value'];
   // what's the time?
   $date = new DateTime();
   $now = $date->format('U');
