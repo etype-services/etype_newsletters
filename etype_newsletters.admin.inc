@@ -131,8 +131,6 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
 
-    echo 'yes';
-
     if (!isset($_POST['etype_newsletter_subscriber_type'])) {
       drupal_set_message("Please choose at least one Subscriber Type.", 'error');
       drupal_goto('admin/config/etype_newsletters/send');
@@ -145,10 +143,10 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
 
     // turn date into timestamp
-    $date_array = $_POST['etype_newsletter_queue_date'];
-    var_dump($date_array);
-    $queue_time = sprintf('%04d', $date_array["year"]) . '-' . sprintf('%02d', $date_array["month"]) . '-' . sprintf('%02d', $date_array["day"]) . ' ' . $date_array["hour"] . ':' . $date_array["minute"];
-    var_dump($queue_time);
+    //$date_array = $_POST['etype_newsletter_queue_date'];
+    //var_dump($date_array);
+    //$queue_time = sprintf('%04d', $date_array["year"]) . '-' . sprintf('%02d', $date_array["month"]) . '-' . sprintf('%02d', $date_array["day"]) . ' ' . $date_array["hour"] . ':' . $date_array["minute"];
+    //var_dump($queue_time);
     //$queue_date = new DateTime($queue_time);
     //$send_date = $queue_date->format('U');
     //$form['etype_newsletter_queue_date'] = array('#type' => 'hidden', '#value' => filter_xss($send_date));
