@@ -209,15 +209,15 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
-  var_dump($form);
-  //var_dump($form_state);
-  exit;
-
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $type = $form['etype_newsletter_subscriber_type']['#value'];
   $subject = $form['etype_newsletter_subject']['#value'];
   $test = $form_state['input']['etype_newsletter_is_test']; // why?
   $email = $form['etype_newsletter_test_email']['#value'];
+  $send_date = $form['etype_newsletter_queue_date']['#value'];
+  // what's the time?
+  $date = new DateTime();
+  $now = $date->format('U');
 
   if (count($nids) > 0) {
 
@@ -250,25 +250,35 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         }
       }
 
-      //var_dump($params);
-      //exit;
+      var_dump($params);
 
-      $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
-      $response = $client->EmailtoListViaDrupal($params);
+      if ($send_date > $now) {
 
-      // dpm($response);
-      // dpm($content);
-
-      if ($response->EmailtoListViaDrupalResult !== 1) {
-        drupal_set_message("An error ocurred, and the newsletter may not have been sent. Please contact eType Customer Service.", 'error');
-      } else {
-        if ($test !== 'yes') {
-          // remove queued nodes from module table
-          db_delete('etype_newsletters')
-          ->execute();
-        }
-        drupal_set_message("The newsletter was sent.");
+        // save newsletter for sending into the future
+        echo "save Newsletter";
+        $formatted = $date->format('m/d/Y H:i');
+        drupal_set_message("The newsletter will be sent to $type on $formatted.");
         drupal_goto('admin/config/etype_newsletters/send');
+
+      } else {
+
+        $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
+        $response = $client->EmailtoListViaDrupal($params);
+
+        // dpm($response);
+        // dpm($content);
+
+        if ($response->EmailtoListViaDrupalResult !== 1) {
+          drupal_set_message("An error ocurred, and the newsletter may not have been sent. Please contact eType Customer Service.", 'error');
+        } else {
+          if ($test !== 'yes') {
+            // remove queued nodes from module table
+            db_delete('etype_newsletters')
+              ->execute();
+          }
+          drupal_set_message("The newsletter was sent.");
+          drupal_goto('admin/config/etype_newsletters/send');
+        }
       }
 
 
