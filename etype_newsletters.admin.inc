@@ -135,23 +135,16 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
       exit;
     }
 
-    // turn date into timestamp
-    $date_array = $_POST['etype_newsletter_queue_date'];
-    $queue_date = new DateTime($date_array['year'] . '-' . $date_array['month'] . '-' . $date_array['day'] . ' ' . $date_array['hour'] . ':' . $date_array['minute']);
-    $send_date = $queue_date->format('U');
-    $date = new DateTime();
-    $now = $date->format('U');
-    // is send date in the future?
-    if ($now < $send_date) {
-      echo "send in future";
-      exit;
-    }
-
     $form['etype_newsletter_nodes'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_nodes']);
     $form['etype_newsletter_subscriber_type'] = array('#type' => 'hidden', '#value' => $_POST['etype_newsletter_subscriber_type']);
     $form['etype_newsletter_subject'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_subject']));
     $form['etype_newsletter_test_email'] = array('#type' => 'hidden', '#value' => filter_xss($_POST['etype_newsletter_test_email']));
 
+    // turn date into timestamp
+    $date_array = $_POST['etype_newsletter_queue_date'];
+    $queue_date = new DateTime($date_array['year'] . '-' . $date_array['month'] . '-' . $date_array['day'] . ' ' . $date_array['hour'] . ':' . $date_array['minute']);
+    $send_date = $queue_date->format('U');
+    $form['etype_newsletter_queue_date'] = array('#type' => 'hidden', '#value' => filter_xss($send_date));
 
     $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'no');
     $pub_id = variable_get('etype_pub');
@@ -199,6 +192,7 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     $form['#submit'][] = 'etype_newsletters_admin_confirm_form_submit';
     return $form;
   } else {
+    drupal_set_message("No nodes selected to send. Select nodes at the Content page", 'error');
     drupal_goto('admin/config/etype_newsletters/send');
   }
 }
@@ -214,9 +208,9 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
-  //var_dump($form);
+  var_dump($form);
   //var_dump($form_state);
-  //exit;
+  exit;
 
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $type = $form['etype_newsletter_subscriber_type']['#value'];
