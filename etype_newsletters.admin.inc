@@ -151,8 +151,8 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     // var_dump($queue_date);
     $send_date = $queue_date->format('U');
     // var_dump($send_date);
-    $form['etype_newsletter'] = array('#type' => 'textfield', '#value' => filter_xss($send_date));
-    $_SESSION['etype_newsletter']['etype_newsletter'] = filter_xss($send_date);
+    $form['etype_newsletter_queue_date'] = array('#type' => 'textfield', '#value' => filter_xss($send_date));
+    $_SESSION['etype_newsletter']['queue_date'] = filter_xss($send_date);
 
     $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'no');
     $pub_id = variable_get('etype_pub');
@@ -222,7 +222,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   $test = $form_state['input']['etype_newsletter_is_test']; // why?
   $email = $form['etype_newsletter_test_email']['#value'];
   $send_date = $form['etype_newsletter_queue_date']['#value'];
-  $send_date = $_SESSION['etype_newsletter']['etype_newsletter';
+  // $send_date = $_SESSION $_SESSION['etype_newsletter']['queue_date'];
 
   dpm ($send_date);
   // what's the time?
