@@ -255,11 +255,12 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
       }
 
       var_dump($params);
+      var_dump($send_date);
+      var_dump($now);
 
       if ($send_date > $now) {
 
         // save newsletter for sending into the future
-        echo "save Newsletter";
         $formatted = $date->format('m/d/Y H:i');
         drupal_set_message("The newsletter will be sent to $type on $formatted.");
         drupal_goto('admin/config/etype_newsletters/send');
