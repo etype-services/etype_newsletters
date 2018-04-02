@@ -146,10 +146,12 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     $date_array = $_POST['etype_newsletter_queue_date'];
     //var_dump($date_array);
     $queue_time = sprintf('%04d', $date_array["year"]) . '-' . sprintf('%02d', $date_array["month"]) . '-' . sprintf('%02d', $date_array["day"]) . ' ' . $date_array["hour"] . ':' . $date_array["minute"];
-    //var_dump($queue_time);
+    var_dump($queue_time);
     $queue_date = new DateTime($queue_time);
+    var_dump($queue_date);
     $send_date = $queue_date->format('U');
-    $form['etype_newsletter_queue_date'] = array('#type' => 'hidden', '#value' => $send_date);
+    var_dump($send_date);
+    $form['etype_newsletter_queue_date'] = array('#type' => 'hidden', '#value' => filter_xss($send_date));
 
     $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'no');
     $pub_id = variable_get('etype_pub');
