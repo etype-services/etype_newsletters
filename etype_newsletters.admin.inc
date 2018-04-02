@@ -214,6 +214,7 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
   dpm($form);
+  dpm($form_state);
 
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $type = $form['etype_newsletter_subscriber_type']['#value'];
