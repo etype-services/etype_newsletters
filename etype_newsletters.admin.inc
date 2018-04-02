@@ -131,9 +131,6 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
 
   if (isset($_POST['etype_newsletter_nodes'])) {
 
-    var_dump($_POST);
-    exit;
-
     if (!isset($_POST['etype_newsletter_subscriber_type'])) {
       drupal_set_message("Please choose at least one Subscriber Type.", 'error');
       drupal_goto('admin/config/etype_newsletters/send');
@@ -156,7 +153,7 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     if ($pub_id == '4149') {
       $message = "Click Send to send the newsletter to the Test Group.";
     } else {
-      $message = "Click Send to send the newsletter to subscribers now.";
+      $message = "Click Send to send the newsletter to $type.";
     }
 
     if (isset($_POST['etype_newsletter_is_test'])) {
