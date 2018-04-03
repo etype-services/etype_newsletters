@@ -222,7 +222,8 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   $email = $form['etype_newsletter_test_email']['#value'];
   $send_date = $form['etype_newsletter_queue_date']['#value'];
 
-  dpm($_SESSION['etype_newsletter']);
+  dpm($form);
+  dpm($form_state);
   dpm($send_date);
   // what's the time?
   $date = new DateTime();
