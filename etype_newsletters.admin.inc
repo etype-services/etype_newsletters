@@ -259,9 +259,10 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
       if ($send_date > $now) {
 
-        // save newsletter for sending into the future
+        // save newsletter for sending in the future
+        etype_newsletters_save($send_date, $params);
         $formatted = $date->format('m/d/Y H:i');
-        drupal_set_message("The newsletter will be sent to the $type list on $formatted.");
+        drupal_set_message("The newsletter was saved successfully and will be sent to the $type list on $formatted.");
         drupal_goto('admin/config/etype_newsletters/send');
         exit;
 
@@ -277,9 +278,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
           drupal_set_message("An error ocurred, and the newsletter may not have been sent. Please contact eType Customer Service.", 'error');
         } else {
           if ($test !== 'yes') {
-            // remove queued nodes from module table
-            db_delete('etype_newsletters')
-              ->execute();
+            etype_newsletters_save($send_date, $params);
           }
           drupal_set_message("The newsletter was sent.");
           drupal_goto('admin/config/etype_newsletters/send');

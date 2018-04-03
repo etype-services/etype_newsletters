@@ -86,3 +86,15 @@ function etype_newsletters_node_delete($node) {
     ->condition('nid', $node->nid)
     ->execute();
 }
+
+function etype_newsletters_save($send_date, $params) {
+  db_insert('etype_newsletters')
+    ->fields(array('send', 'data'))
+    ->values(array(
+      'send' => $send_date,
+      'data' => $params,
+    ))
+    ->execute();
+  db_delete('etype_newsletters_nodes')
+    ->execute();
+}
