@@ -281,11 +281,9 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
           drupal_set_message("The newsletter was sent.");
         }
       }
-
     } else {
       drupal_set_message("Please set eType Pub Id in eType Settings. The newsletter was not sent.", 'warning');
     }
-
   } else {
     drupal_set_message("No content selected. The newsletter was not sent.", 'warning');
   }
