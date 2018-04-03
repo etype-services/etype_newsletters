@@ -215,8 +215,6 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
  */
 function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
-  dpm($form_state);
-
   $nids = explode(' ', $form['etype_newsletter_nodes']['#value']);
   $type = $form['etype_newsletter_subscriber_type']['#value'];
   $subject = $form['etype_newsletter_subject']['#value'];
@@ -263,7 +261,8 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
 
         // save newsletter for sending in the future
         etype_newsletters_save($send_date, $params);
-        $formatted = $date->format('m/d/Y H:i');
+        $savedate = new DateTime($send_date);
+        $formatted = $savedate->format('m/d/Y H:i');
         drupal_set_message("The newsletter was saved successfully and will be sent to the $type list on $formatted.");
 
       } else {
