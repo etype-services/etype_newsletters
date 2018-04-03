@@ -145,14 +145,10 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     // turn date into timestamp
     if (isset($_POST['etype_newsletter_queue_date'])) {
       $date_array = $_POST['etype_newsletter_queue_date'];
-      // var_dump($date_array);
       if (is_array($date_array)) {
-        $queue_time = sprintf('%04d', $date_array["year"]) . '-' . sprintf('%02d', $date_array["month"]) . '-' . sprintf('%02d', $date_array["day"]) . ' ' . $date_array["hour"] . ':' . $date_array["minute"];
-        // var_dump($queue_time);
+        $queue_time = sprintf('%04d', $date_array['year']) . '-' . sprintf('%02d', $date_array['month']) . '-' . sprintf('%02d', $date_array['day']) . ' ' . $date_array['hour'] . ':' . $date_array['minute'];
         $queue_date = new DateTime($queue_time);
-        // var_dump($queue_date);
         $send_date = $queue_date->format('U');
-        // var_dump($send_date);
         $form['etype_newsletter_queue_date'] = array('#type' => 'hidden', '#value' => $send_date);
       }
     }
