@@ -67,6 +67,8 @@ function etype_newsletters_install() {
 function etype_newsletters_uninstall() {
   if (db_table_exists('etype_newsletters')) {
     db_drop_table('etype_newsletters');
+  }
+  if (db_table_exists('etype_newsletter_nodes')) {
     db_drop_table('etype_newsletter_nodes');
   }
 }
