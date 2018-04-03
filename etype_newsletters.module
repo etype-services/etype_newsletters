@@ -95,6 +95,5 @@ function etype_newsletters_save($send_date, $params) {
       'data' => serialize($params),
     ))
     ->execute();
-  db_delete('etype_newsletters_nodes')
-    ->execute();
+  // db_delete('etype_newsletters_nodes')->execute();
 }
