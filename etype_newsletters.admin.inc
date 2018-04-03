@@ -220,7 +220,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   $subject = $form['etype_newsletter_subject']['#value'];
   $test = $form_state['input']['etype_newsletter_is_test']; // why?
   $email = $form['etype_newsletter_test_email']['#value'];
-  $send_date = $form_state['input']['etype_newsletter_queue_date']; // why, oh why?
+  $send_date = (int) $form_state['input']['etype_newsletter_queue_date']; // why, oh why?
 
   dpm($form);
   dpm($form_state);
