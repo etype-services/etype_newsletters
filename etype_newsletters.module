@@ -74,6 +74,12 @@ function etype_newsletters_menu() {
     'type' => MENU_CALLBACK,
   ];
 
+  $items['admin/config/etype_newsletters/complete'] = [
+    'title' => 'eType Newsletter Sent',
+    'access arguments' => ['administer etype newsletters'],
+    'type' => MENU_NORMAL_ITEM,
+  ];
+
   return $items;
 }
 

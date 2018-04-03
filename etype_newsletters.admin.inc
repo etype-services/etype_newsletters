@@ -173,7 +173,7 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
           } else {
             drupal_set_message("The test email is not valid. Please check it and try again.", 'error');
             drupal_goto('admin/config/etype_newsletters/send');
-            return;
+            exit;
           }
         }
       }
@@ -254,6 +254,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         } else {
           drupal_set_message("The test email is not valid. Please check it and try again.", 'error');
           drupal_goto('admin/config/etype_newsletters/send');
+          exit;
         }
       }
 
@@ -287,5 +288,5 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   } else {
     drupal_set_message("No content selected. The newsletter was not sent.", 'warning');
   }
-
+  drupal_goto('admin/config/etype_newsletters/complete');
 }
