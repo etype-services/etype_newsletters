@@ -7,17 +7,46 @@
  */
 
 function etype_newsletters_schema() {
-  $schema['etype_newsletters'] = array(
-    'description' => 'The base table for etype_newsletters.',
-    'fields' => array(
-      'nid' => array(
-        'description' => 'Nodes added to a newsletter.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
-    ),
-  );
+  $schema = [
+    'etype_newsletters_nodes' => [
+      'description' => 'Nodes added to etype_newsletters.',
+      'fields' => [
+        'nid' => [
+          'description' => 'Node added to a newsletter.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+      ],
+    ],
+    'etype_newsletters' => [
+      'description' => 'The base table for etype_newsletters.',
+      'fields' => [
+        'id' => [
+          'description' => 'Id',
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'send' => [
+          'description' => 'Timestamp of send date',
+          'type' => 'numeric',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'data' => [
+          'description' => 'Newsletter date',
+          'type' => 'text',
+          'serialized' => TRUE,
+        ],
+      ],
+      'unique keys' => [
+        'id' => [
+          'id',
+        ],
+      ],
+    ],
+  ];
 
   return $schema;
 }
@@ -38,5 +67,6 @@ function etype_newsletters_install() {
 function etype_newsletters_uninstall() {
   if (db_table_exists('etype_newsletters')) {
     db_drop_table('etype_newsletters');
+    db_drop_table('etype_newsletter_nodes');
   }
 }

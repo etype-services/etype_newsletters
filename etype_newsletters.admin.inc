@@ -12,7 +12,7 @@ require('etype_newsletters.twig.inc');
  * @return mixed
  */
 function etype_newsletters_get_selected_nodes() {
-  $query = db_select('etype_newsletters', 'n');
+  $query = db_select('etype_newsletters_nodes', 'n');
   $query->fields('n', array('nid'));
   $results = $query->execute();
   $nids = [];
@@ -222,9 +222,6 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   $email = $form['etype_newsletter_test_email']['#value'];
   $send_date = (int) $form_state['input']['etype_newsletter_queue_date']; // why, oh why?
 
-  dpm($form);
-  dpm($form_state);
-  dpm($send_date);
   // what's the time?
   $date = new DateTime();
   $now = $date->format('U');
@@ -260,15 +257,11 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         }
       }
 
-      var_dump($params);
-      var_dump($send_date);
-      var_dump($now);
-
       if ($send_date > $now) {
 
         // save newsletter for sending into the future
         $formatted = $date->format('m/d/Y H:i');
-        drupal_set_message("The newsletter will be sent to $type on $formatted.");
+        drupal_set_message("The newsletter will be sent to the $type list on $formatted.");
         drupal_goto('admin/config/etype_newsletters/send');
         exit;
 
@@ -277,7 +270,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
         $response = $client->EmailtoListViaDrupal($params);
 
-        dpm($response);
+        // dpm($response);
         // dpm($content);
 
         if ($response->EmailtoListViaDrupalResult !== 1) {
