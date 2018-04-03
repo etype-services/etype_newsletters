@@ -92,7 +92,7 @@ function etype_newsletters_save($send_date, $params) {
     ->fields(array('send', 'data'))
     ->values(array(
       'send' => $send_date,
-      'data' => $params,
+      'data' => serialize($params),
     ))
     ->execute();
   db_delete('etype_newsletters_nodes')
