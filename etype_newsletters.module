@@ -54,6 +54,7 @@ function etype_newsletters_menu() {
     'access arguments' => ['administer etype newsletters'],
     'file' => 'etype_newsletters.admin.inc',
     'type' => MENU_NORMAL_ITEM,
+    'weight' => 10,
   ];
 
   $items['admin/config/etype_newsletters/confirm_send'] = [
