@@ -151,7 +151,7 @@ function etype_newsletters_admin_confirm_form($form, &$form_state) {
     // var_dump($queue_date);
     $send_date = $queue_date->format('U');
     // var_dump($send_date);
-    $form['etype_newsletter_queue_date'] = array('#type' => 'textfield', '#value' => $send_date);
+    $form['etype_newsletter_queue_date'] = array('#type' => 'hidden', '#value' => $send_date);
 
     $form['etype_newsletter_is_test'] = array('#type' => 'hidden', '#value' => 'no');
     $pub_id = variable_get('etype_pub');
@@ -257,7 +257,7 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         }
       }
 
-      if ($send_date > $now) {
+      if (($send_date > $now) && ($test !== 'yes')) {
 
         // save newsletter for sending in the future
         etype_newsletters_save($send_date, $params);
