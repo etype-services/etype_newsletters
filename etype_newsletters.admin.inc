@@ -263,8 +263,6 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         etype_newsletters_save($send_date, $params);
         $formatted = $date->format('m/d/Y H:i');
         drupal_set_message("The newsletter was saved successfully and will be sent to the $type list on $formatted.");
-        drupal_goto('admin/config/etype_newsletters/send');
-        exit;
 
       } else {
 
@@ -281,10 +279,8 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
             etype_newsletters_save($send_date, $params);
           }
           drupal_set_message("The newsletter was sent.");
-          drupal_goto('admin/config/etype_newsletters/send');
         }
       }
-
 
     } else {
       drupal_set_message("Please set eType Pub Id in eType Settings. The newsletter was not sent.", 'warning');
