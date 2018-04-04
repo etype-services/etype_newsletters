@@ -135,6 +135,7 @@ function etype_newsletters_send_queued() {
 
   if (count($result) > 0) {
     foreach ($result as $item) {
+      var_dump($item);
       $params = unserialize($item->data);
       $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
       $response = $client->EmailtoListViaDrupal($params);
