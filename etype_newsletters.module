@@ -132,11 +132,10 @@ function etype_newsletters_send_queued() {
     ->condition('send', $now,'<')
     ->execute()
     ->fetchAll();
-  var_dump($result);
-  exit;
+
   if (count($result) > 0) {
     foreach ($result as $item) {
-      $params = unserialize($item['data']);
+      $params = unserialize($item->data);
       $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
       $response = $client->EmailtoListViaDrupal($params);
 
@@ -151,7 +150,7 @@ function etype_newsletters_send_queued() {
         watchdog(
           'etype_newsletters',
           "%id was sent to the %l list.",
-          ['%id' => $item['id'], '%l' => $item['SubscriberType']],
+          ['%id' => $item->id, '%l' => $item->SubscriberType],
           WATCHDOG_NOTICE
         );
       }
