@@ -92,7 +92,7 @@ function etype_newsletters_admin_form($form, &$form_state) {
 
       $form['etype_newsletter_is_test'] = [
         '#title' => t('Send newsletter to test email'),
-        '#description' => t("If checked, the newsletter will be sent immediately to the test email below."),
+        '#description' => t("If checked, the newsletter will be sent immediately to a valid test email below."),
         '#type' => 'checkboxes',
         '#options' => ['yes' => 'Yes'],
         '#default_value' => ['yes'],
