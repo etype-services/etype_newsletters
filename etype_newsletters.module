@@ -126,7 +126,6 @@ function etype_newsletters_save($send_date, $params, $sent) {
 function etype_newsletters_send_queued() {
   $date = new DateTime();
   $now = $date->format('U');
-  var_dump($now);
   $result = db_select('etype_newsletters', 'n')
     ->fields('n')
     ->condition('sent', 0,'=')
@@ -134,5 +133,44 @@ function etype_newsletters_send_queued() {
     ->execute()
     ->fetchAssoc();
   var_dump($result);
+  if (count($result) > 0) {
+    foreach ($result as $item) {
+      $params = unserialize($item['data']);
+      $client = new SoapClient('https://www.etypeservices.com/Service_EmailtoListViaDrupal.asmx?WSDL');
+      $response = $client->EmailtoListViaDrupal($params);
+
+      if ($response->EmailtoListViaDrupalResult !== 1) {
+        watchdog(
+          'etype_newsletters',
+          "%id got %r when sending.",
+          ['%id' => $item['id'], '%r' => $response],
+          WATCHDOG_WARNING
+        );
+      } else {
+        watchdog(
+          'etype_newsletters',
+          "%id was sent to the %l list.",
+          ['%id' => $item['id'], '%l' => $item['SubscriberType']],
+          WATCHDOG_NOTICE
+        );
+      }
+    }
+  }
 }
+
+/**
+ * Cron Jobs
+ * @param $op
+ * @param null $job
+ * @return mixed
+ */
+function etype_newsletters_cronapi($op, $job = NULL) {
+  $items['etype_newsletters_cron'] = array(
+    'description' => 'Send Queued Newsletters',
+    'rule' => '*/15 * * * *',
+    'callback' => 'etype_newsletters_send_queued',
+  );
+  return $items;
+}
+
 
