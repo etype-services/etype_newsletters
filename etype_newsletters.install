@@ -39,6 +39,13 @@ function etype_newsletters_schema() {
           'type' => 'text',
           'serialized' => TRUE,
         ],
+        'sent' => [
+          'description' => 'Sent flag',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'size' => 'tiny'
+        ],
       ],
       'unique keys' => [
         'id' => [

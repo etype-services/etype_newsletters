@@ -81,6 +81,15 @@ function etype_newsletters_menu() {
     'type' => MENU_NORMAL_ITEM,
   ];
 
+  /* access cron job function via url for testing */
+  $items['etype_newsletters_cron'] = array(
+    'title' => 'Send Queued Newsletters',
+    'description' => 'Send Queued Newsletters',
+    'page callback' => 'etype_newsletters_send_queued',
+    'access arguments' => ['administer etype newsletters'],
+    'type' => MENU_NORMAL_ITEM,
+  );
+
   return $items;
 }
 
@@ -94,13 +103,35 @@ function etype_newsletters_node_delete($node) {
     ->execute();
 }
 
-function etype_newsletters_save($send_date, $params) {
+/**
+ * @param $send_date
+ * @param $params
+ * @param $sent
+ */
+function etype_newsletters_save($send_date, $params, $sent) {
   db_insert('etype_newsletters')
     ->fields(array('send', 'data'))
     ->values(array(
       'send' => $send_date,
       'data' => serialize($params),
+      'sent' => $sent,
     ))
     ->execute();
-  // db_delete('etype_newsletters_nodes')->execute();
+  db_delete('etype_newsletters_nodes')->execute();
 }
+
+/**
+ *
+ */
+function etype_newsletters_send_queued() {
+  $date = new DateTime();
+  $now = $date->format('U');
+  $result = db_select('etype_newsletters', 'n')
+    ->fields('n')
+    ->condition('sent', 0,'=')
+    ->condition('send', $now,'<')
+    ->execute()
+    ->fetchAssoc();
+  dpm($result);
+}
+
