@@ -155,11 +155,16 @@ function etype_newsletters_send_queued() {
         );
       }
 
+      /* mark as sent */
       db_update('etype_newsletters')
       ->fields([
         'sent' => 1,
       ])
         ->condition('id', $item->id, '=')
+        ->execute();
+
+      /* clean out nodes table */
+      db_delete('etype_newsletters_nodes')
         ->execute();
     }
   }
