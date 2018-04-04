@@ -154,6 +154,7 @@ function etype_newsletters_send_queued() {
           WATCHDOG_NOTICE
         );
       }
+
       db_update('etype_newsletters')
       ->fields([
         'sent' => 1,
