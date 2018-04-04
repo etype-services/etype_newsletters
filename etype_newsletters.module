@@ -151,7 +151,7 @@ function etype_newsletters_send_queued() {
         watchdog(
           'etype_newsletters',
           "%id was sent to the %l list.",
-          ['%id' => $item->id, '%l' => $params->SubscriberType],
+          ['%id' => $item->id, '%l' => $params['SubscriberType']],
           WATCHDOG_NOTICE
         );
       }
