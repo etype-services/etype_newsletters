@@ -131,7 +131,7 @@ function etype_newsletters_send_queued() {
     ->condition('sent', 0,'=')
     ->condition('send', $now,'<')
     ->execute()
-    ->fetchAssoc();
+    ->fetchAll();
   var_dump($result);
   exit;
   if (count($result) > 0) {
