@@ -151,10 +151,16 @@ function etype_newsletters_send_queued() {
         watchdog(
           'etype_newsletters',
           "%id was sent to the %l list.",
-          ['%id' => $item->id, '%l' => $item->SubscriberType],
+          ['%id' => $item->id, '%l' => $params->SubscriberType],
           WATCHDOG_NOTICE
         );
       }
+      db_update('etype_newsletters') // Table name no longer needs {}
+      ->fields([
+        'sent' => 1,
+      ])
+        ->condition('id', $item->id, '=')
+        ->execute();
     }
   }
 }
