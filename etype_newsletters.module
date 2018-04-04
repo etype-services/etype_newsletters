@@ -143,7 +143,7 @@ function etype_newsletters_send_queued() {
         watchdog(
           'etype_newsletters',
           "%id got %r when sending.",
-          ['%id' => $item['id'], '%r' => $response],
+          ['%id' => $item->id, '%r' => $response],
           WATCHDOG_WARNING
         );
       } else {
