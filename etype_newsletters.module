@@ -162,10 +162,6 @@ function etype_newsletters_send_queued() {
       ])
         ->condition('id', $item->id, '=')
         ->execute();
-
-      /* clean out nodes table */
-      db_delete('etype_newsletters_nodes')
-        ->execute();
     }
   }
 }
