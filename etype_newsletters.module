@@ -154,7 +154,7 @@ function etype_newsletters_send_queued() {
           WATCHDOG_NOTICE
         );
       }
-      db_update('etype_newsletters') // Table name no longer needs {}
+      db_update('etype_newsletters')
       ->fields([
         'sent' => 1,
       ])
