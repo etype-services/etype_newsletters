@@ -49,6 +49,7 @@ function etype_newsletters_build_newsletter($nids = []) {
         'body' => $body,
         'url' => $url,
       ];
+      var_dump($items);exit;
       if (isset ($node->field_image['und'])) {
         $image_src = image_style_url('large', $node->field_image['und'][0]['uri']);
         $items['image_src'] = $image_src;
