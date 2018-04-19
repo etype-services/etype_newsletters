@@ -45,13 +45,15 @@ function etype_newsletters_build_newsletter($nids = []) {
       $body = empty($node->body['und'][0]['summary'])? substr($node->body['und'][0]['safe_value'], 0 , 100): $node->body['und'][0]['summary'];
       $alias = drupal_get_path_alias('node/' . $node->nid);
       $url = $GLOBALS['base_url'] . '/' . $alias;
-      $image_src = image_style_url('large', $node->field_image['und'][0]['uri']);
       $items[] = [
         'title' => $node->title,
         'body' => $body,
         'url' => $url,
-        'image_src' => $image_src,
       ];
+      if (isset ($node->field_image)) {
+        $image_src = image_style_url('large', $node->field_image['und'][0]['uri']);
+        $items['image_src'] = $image_src;
+      }
     }
   }
 
