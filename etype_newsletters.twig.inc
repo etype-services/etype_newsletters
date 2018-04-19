@@ -41,7 +41,7 @@ function etype_newsletters_build_newsletter($nids = []) {
     $nodes = entity_load('node', $nids);
     foreach ($nodes as $node) {
       $body = empty($node->body['und'][0]['summary'])? substr($node->body['und'][0]['safe_value'], 0 , 100): $node->body['und'][0]['summary'];
-      $body = str_replace("&nbsp;", " ");
+      $body = str_replace("&nbsp;", " ", $body);
       $body = trim(strip_tags($body));
       $body = htmlentities($body, ENT_SUBSTITUTE);
       $alias = drupal_get_path_alias('node/' . $node->nid);
