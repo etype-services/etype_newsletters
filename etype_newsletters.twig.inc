@@ -41,6 +41,8 @@ function etype_newsletters_build_newsletter($nids = []) {
     $nodes = entity_load('node', $nids);
     foreach ($nodes as $node) {
       $body = empty($node->body['und'][0]['summary'])? substr($node->body['und'][0]['safe_value'], 0 , 100): $node->body['und'][0]['summary'];
+      echo $body;
+      exit;
       $body = str_replace(["&nbsp;", "\n"], " ", $body);
       $body = trim(strip_tags($body));
       $body = htmlentities($body, ENT_SUBSTITUTE);
