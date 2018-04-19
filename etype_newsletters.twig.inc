@@ -48,7 +48,7 @@ function etype_newsletters_build_newsletter($nids = []) {
       $url = $GLOBALS['base_url'] . '/' . $alias;
       $items[] = [
         'title' => $node->title,
-        'body' => $body,
+        'body' => trim($body),
         'url' => $url,
       ];
       var_dump($items);
