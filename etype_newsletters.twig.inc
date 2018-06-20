@@ -29,7 +29,6 @@ function etype_newsletters_build_newsletter($nids = []) {
 
   $theme_key = variable_get('theme_default');
   $logo_src = file_create_url(theme_get_setting('logo_path', $theme_key));
-  $big_image_src = '';
   $site_name = variable_get('site_name');
   $str = substr($site_name, 0, 3);
   if (strtolower($str) !== 'the') {
@@ -41,24 +40,27 @@ function etype_newsletters_build_newsletter($nids = []) {
   if (!empty($nids)) {
     $nodes = entity_load('node', $nids);
     foreach ($nodes as $node) {
-      // dpm($node);
       $body = empty($node->body['und'][0]['summary'])? substr($node->body['und'][0]['safe_value'], 0 , 100): $node->body['und'][0]['summary'];
+      $body = trim(strip_tags($body));
+      $body = htmlentities($body, ENT_SUBSTITUTE);
       $alias = drupal_get_path_alias('node/' . $node->nid);
       $url = $GLOBALS['base_url'] . '/' . $alias;
-      $image_src = image_style_url('large', $node->field_image['und'][0]['uri']);
       $items[] = [
         'title' => $node->title,
         'body' => $body,
         'url' => $url,
-        'image_src' => $image_src,
       ];
+      var_dump($items);
+      if (isset ($node->field_image['und'])) {
+        $image_src = image_style_url('large', $node->field_image['und'][0]['uri']);
+        $items['image_src'] = $image_src;
+      }
     }
   }
 
   $template = $twig->load('content.html.twig');
   $content = $template->render([
     'logo_url' => $logo_src,
-    'featured_image' => $big_image_src,
     'site_name' => $site_name,
     'items' => $items,
   ]);

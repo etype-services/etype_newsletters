@@ -278,8 +278,10 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
         } else {
           if ($test !== 'yes') {
             etype_newsletters_save($send_date, $params, 1);
+            drupal_set_message("The newsletter was sent to the $type list.");
+          } else {
+            drupal_set_message("The newsletter was sent to $email.");
           }
-          drupal_set_message("The newsletter was sent to the $type list.");
         }
       }
     } else {
