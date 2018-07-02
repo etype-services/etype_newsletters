@@ -45,16 +45,16 @@ function etype_newsletters_build_newsletter($nids = []) {
       $body = htmlentities($body, ENT_SUBSTITUTE);
       $alias = drupal_get_path_alias('node/' . $node->nid);
       $url = $GLOBALS['base_url'] . '/' . $alias;
-      $items[] = [
+      $arr = [
         'title' => $node->title,
         'body' => $body,
         'url' => $url,
       ];
-      var_dump($items);
       if (isset ($node->field_image['und'])) {
         $image_src = image_style_url('large', $node->field_image['und'][0]['uri']);
-        $items['image_src'] = $image_src;
+        $arr['image_src'] = $image_src;
       }
+      $items[] = $arr;
     }
   }
 
