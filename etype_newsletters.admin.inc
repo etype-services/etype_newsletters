@@ -290,5 +290,5 @@ function etype_newsletters_admin_confirm_form_submit($form, &$form_state) {
   } else {
     drupal_set_message("No content selected. The newsletter was not sent.", 'warning');
   }
-  drupal_goto('admin/config/etype_newsletters/complete');
+  // drupal_goto('admin/config/etype_newsletters/complete');
 }
