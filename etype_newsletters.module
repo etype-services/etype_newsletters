@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * TODO: add Encoding (see wire module) to check for non-utf8 characters on xml import
+ */
+
+/**
  * Implements hook_permission().
  */
 function etype_newsletters_permission() {
