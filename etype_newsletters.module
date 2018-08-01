@@ -16,51 +16,50 @@ function etype_newsletters_permission() {
 }
 
 /**
- * @return array
- * Create custom VBO action
+ * Implements hook_node_operations().
  */
-function etype_newsletters_action_info() {
-  return [
-    'etype_newsletters_add_nodes' => [
-      'type' => 'node',
-      'label' => t('Add to newsletter'),
-      'configurable' => FALSE,
-      'triggers' => ['any'],
-    ],
-    'etype_newsletters_remove_nodes' => [
-      'type' => 'node',
-      'label' => t('Remove from newsletter'),
-      'configurable' => FALSE,
-      'triggers' => ['any'],
-    ],
-  ];
+function etype_newsletters_node_operations() {
+
+  $operations = [];
+
+  $operations['etype_newsletters_add_nodes'] = array(
+    'label' => t('Add Nodes to a Newsletter'),
+    'callback' => 'etype_newsletters_add_nodes',
+  );
+
+  $operations['etype_newsletters_remove_nodes'] = array(
+    'label' => t('Remove Nodes from a Newsletter'),
+    'callback' => 'etype_newsletters_remove_nodes',
+  );
+
+  return $operations;
 }
 
 /**
- * @param $node
- * @param $context
+ * @param $nodes
  * Function attached to custom action to store selected node ids
  */
-function etype_newsletters_add_nodes(&$node, $context) {
-  $nid = db_merge('etype_newsletters_nodes')
-    ->key(['nid' => $node->nid])
-    ->fields([
-      'nid' => $node->nid,
-    ])
-    ->execute();
-  // dpm($nid);
+function etype_newsletters_add_nodes($nodes) {
+  foreach ($nodes as $node) {
+    db_merge('etype_newsletters_nodes')
+      ->key(['nid' => $node->nid])
+      ->fields([
+        'nid' => $node->nid,
+      ])
+      ->execute();
+  }
 }
 
 /**
- * @param $node
- * @param $context
+ * @param $nodes
  * Function attached to custom action to delete selected node ids from newsletter table
  */
-function etype_newsletters_remove_nodes(&$node, $context) {
-  $num = db_delete('etype_newsletters_nodes')
-    ->condition('nid', $node->nid)
-    ->execute();
-  // dpm($num);
+function etype_newsletters_remove_nodes($nodes) {
+  foreach ($nodes as $node) {
+    db_delete('etype_newsletters_nodes')
+      ->condition('nid', $node->nid)
+      ->execute();
+  }
 }
 
 /**
