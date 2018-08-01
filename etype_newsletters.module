@@ -40,7 +40,6 @@ function etype_newsletters_node_operations() {
  * Function attached to custom action to store selected node ids
  */
 function etype_newsletters_add_nodes($nodes) {
-
   foreach ($nodes as $nid) {
     db_merge('etype_newsletters_nodes')
       ->key(['nid' => $nid])
