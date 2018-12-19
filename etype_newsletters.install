@@ -43,7 +43,6 @@ function etype_newsletters_schema() {
           'description' => 'Sent flag',
           'type' => 'int',
           'unsigned' => TRUE,
-          'not null' => TRUE,
           'size' => 'tiny'
         ],
       ],
