@@ -45,6 +45,7 @@ function etype_newsletters_schema() {
           'unsigned' => TRUE,
           'size' => 'tiny',
           'not null' => TRUE,
+          'default' => 0,
         ],
       ],
       'unique keys' => [
